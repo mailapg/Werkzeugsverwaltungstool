@@ -1,0 +1,140 @@
+//Paste the code in: https://dbdiagram.io/home
+
+// Users, Roles, Departments
+
+Table roles {
+  id integer [primary key, not null]
+  name varchar [not null, unique] // ADMIN, DEPARTMENT_MANAGER, EMPLOYEE, AZUBI
+}
+
+Table departments {
+  id integer [primary key, not null]
+  name varchar [not null, unique]
+  lead_user_id integer [not null, unique] // one-to-one leader per department
+}
+
+Table users {
+  id integer [primary key, not null]
+  firstname varchar [not null]
+  lastname varchar [not null]
+  email varchar [not null, unique]
+  passwordhash varchar [not null]
+  is_active bool [not null, default: true]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  role_id integer [not null]
+  department_id integer [not null]
+}
+
+Ref: users.role_id > roles.id
+Ref: users.department_id > departments.id
+Ref: users.id - departments.lead_user_id
+
+
+// Tools
+
+Table tool_categories {
+  id integer [primary key, not null]
+  name varchar [not null, unique]
+}
+
+Table tool_status {
+  id integer [primary key, not null]
+  name varchar [not null, unique] // AVAILABLE, LOANED, DEFECT, MAINTENANCE, RETIRED
+}
+
+Table tool_condition {
+  id integer [primary key, not null]
+  name varchar [not null, unique] // OK, WORN, DEFECT
+}
+
+Table tools {
+  id integer [primary key, not null]
+  tool_name varchar [not null]
+  description text //unicodetext
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  category_id integer [not null]
+}
+
+Table tool_items {
+  id integer [primary key, not null]
+  inventory_no varchar [not null, unique]
+  description text //unicodetext
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  tool_id integer [not null]
+  status_id integer [not null]
+  condition_id integer [not null]
+}
+
+Ref: tools.category_id > tool_categories.id
+Ref: tool_items.tool_id > tools.id
+Ref: tool_items.status_id > tool_status.id
+Ref: tool_items.condition_id > tool_condition.id
+
+
+// Approval Workflow
+
+Table loan_request_status {
+  id integer [primary key, not null]
+  name varchar [not null, unique] // REQUESTED, APPROVED, REJECTED, CANCELLED
+}
+
+Table loan_requests {
+  id integer [primary key, not null]
+  comment text
+  requested_at timestamp [not null]
+  due_at timestamp [not null]
+  decision_at timestamp
+  decision_comment text
+  requester_user_id integer [not null]
+  approver_user_id integer
+  request_status_id integer [not null]
+}
+
+Table loan_request_items {
+  id integer [primary key, not null]
+  quantity integer [not null, default: 1]
+  tool_id integer [not null]
+  request_id integer [not null]
+  indexes { (request_id, tool_id) [unique] }
+}
+
+Ref: loan_requests.requester_user_id > users.id
+Ref: loan_requests.approver_user_id > users.id
+Ref: loan_requests.request_status_id > loan_request_status.id
+Ref: loan_request_items.tool_id > tools.id
+Ref: loan_request_items.request_id > loan_requests.id
+
+
+// Loans
+
+Table loans {
+  id integer [primary key, not null]
+  issued_at timestamp [not null]
+  returned_at timestamp
+  due_at timestamp [not null]
+  returned_by_user_id integer
+  borrower_user_id integer [not null]
+  issued_by_user_id integer [not null]
+  created_from_request_id integer
+}
+
+Table loan_items {
+  id integer [primary key, not null]
+  return_comment text //unicodetext
+  return_condition_id integer
+  tool_item_id integer [not null]
+  loan_id integer [not null]
+  indexes { (loan_id, tool_item_id) [unique] }
+}
+
+Ref: loans.borrower_user_id > users.id
+Ref: loans.issued_by_user_id > users.id
+Ref: loans.returned_by_user_id > users.id
+Ref: loans.created_from_request_id > loan_requests.id
+
+Ref: loan_items.loan_id > loans.id
+Ref: loan_items.tool_item_id > tool_items.id
+Ref: loan_items.return_condition_id > tool_condition.id
