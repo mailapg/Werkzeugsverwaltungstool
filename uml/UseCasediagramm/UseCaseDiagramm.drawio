@@ -1,10 +1,10 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Safari/605.1.15" version="29.3.8">
   <diagram name="Seite-1" id="OI7xGV61pnv9dPisAE63">
-    <mxGraphModel dx="2698" dy="2387" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2043" dy="1961" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="VlquYZSPypx6MMYNdp---2" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;" value="Werkzeugtool" vertex="1">
+        <mxCell id="VlquYZSPypx6MMYNdp---2" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;" value="Werkzeugverwaltungstool" vertex="1">
           <mxGeometry height="970" width="730" y="-410" as="geometry" />
         </mxCell>
         <mxCell id="S_6Ug6WQVcVG_kXd_oq0-55" parent="VlquYZSPypx6MMYNdp---2" style="ellipse;html=1;whiteSpace=wrap;" value="Werkzeug buchen" vertex="1">
