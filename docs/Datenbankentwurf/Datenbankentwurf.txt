@@ -1,5 +1,3 @@
-//Paste the code in: https://dbdiagram.io/home
-
 // Users, Roles, Departments
 
 Table roles {
@@ -10,7 +8,7 @@ Table roles {
 Table departments {
   id integer [primary key, not null]
   name varchar [not null, unique]
-  lead_user_id integer [not null, unique] // one-to-one leader per department
+  lead_user_id integer [unique] // NULL erlaubt, später setzen - one-to-one leader per department
 }
 
 Table users {
@@ -72,6 +70,31 @@ Ref: tools.category_id > tool_categories.id
 Ref: tool_items.tool_id > tools.id
 Ref: tool_items.status_id > tool_status.id
 Ref: tool_items.condition_id > tool_condition.id
+
+//Issues
+
+Table tool_item_issue_status {
+  id integer [primary key, not null]
+  name varchar [not null, unique] // OPEN, IN_PROGRESS, RESOLVED, CLOSED
+}
+
+Table tool_item_issues {
+  id integer [primary key, not null]
+  reported_at timestamp [not null]
+  title varchar [not null]
+  description text
+  resolved_at timestamp
+    tool_item_id integer [not null]
+  reported_by_user_id integer [not null]
+  status_id integer [not null]
+  related_loan_id integer // NULL erlaubt (Issue kann auch ohne konkrete Ausleihe entstehen)
+
+}
+
+Ref: tool_item_issues.tool_item_id > tool_items.id
+Ref: tool_item_issues.reported_by_user_id > users.id
+Ref: tool_item_issues.status_id > tool_item_issue_status.id
+Ref: tool_item_issues.related_loan_id > loans.id
 
 
 // Approval Workflow
