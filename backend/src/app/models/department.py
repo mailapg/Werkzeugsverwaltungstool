@@ -14,7 +14,7 @@ class Department(Base):
 
     # NULL erlaubt (sonst Insert-Zirkel bei initialem Setup)
     lead_user_id: Mapped[Optional[int]] = mapped_column(
-        ForeignKey("users.id"),
+        ForeignKey("users.id", use_alter=True, name="fk_department_lead_user"),
         unique=True,
         nullable=True,
     )
