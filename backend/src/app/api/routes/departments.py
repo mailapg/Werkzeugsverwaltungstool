@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from src.app.auth.security import get_current_user, require_role
 from src.app.db.deps import get_db
 from src.app.schemas.department import DepartmentCreate, DepartmentUpdate, DepartmentRead
 import src.app.crud.department as crud
@@ -8,12 +9,14 @@ import src.app.crud.department as crud
 router = APIRouter(tags=["Departments"])
 
 
-@router.get("/getdepartments", response_model=list[DepartmentRead])
+@router.get("/getdepartments", response_model=list[DepartmentRead],
+            dependencies=[Depends(get_current_user)])
 def list_departments(db: Session = Depends(get_db)):
     return crud.get_departments(db)
 
 
-@router.get("/getdepartment/{department_id}", response_model=DepartmentRead)
+@router.get("/getdepartment/{department_id}", response_model=DepartmentRead,
+            dependencies=[Depends(get_current_user)])
 def get_department(department_id: int, db: Session = Depends(get_db)):
     department = crud.get_department(db, department_id)
     if not department:
@@ -21,12 +24,14 @@ def get_department(department_id: int, db: Session = Depends(get_db)):
     return department
 
 
-@router.post("/createdepartment", response_model=DepartmentRead, status_code=201)
+@router.post("/createdepartment", response_model=DepartmentRead, status_code=201,
+             dependencies=[Depends(require_role("ADMIN"))])
 def create_department(data: DepartmentCreate, db: Session = Depends(get_db)):
     return crud.create_department(db, data)
 
 
-@router.patch("/updatedepartment/{department_id}", response_model=DepartmentRead)
+@router.patch("/updatedepartment/{department_id}", response_model=DepartmentRead,
+              dependencies=[Depends(require_role("ADMIN"))])
 def update_department(department_id: int, data: DepartmentUpdate, db: Session = Depends(get_db)):
     department = crud.get_department(db, department_id)
     if not department:
@@ -34,7 +39,8 @@ def update_department(department_id: int, data: DepartmentUpdate, db: Session = 
     return crud.update_department(db, department, data)
 
 
-@router.delete("/deletedepartment/{department_id}", status_code=204)
+@router.delete("/deletedepartment/{department_id}", status_code=204,
+               dependencies=[Depends(require_role("ADMIN"))])
 def delete_department(department_id: int, db: Session = Depends(get_db)):
     department = crud.get_department(db, department_id)
     if not department:

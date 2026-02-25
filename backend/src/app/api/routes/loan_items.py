@@ -1,18 +1,22 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from src.app.auth.security import get_current_user, require_role
 from src.app.db.deps import get_db
 from src.app.schemas.loan_item import LoanItemRead, LoanItemUpdate, LoanItemStandaloneCreate
 import src.app.crud.loan_item as crud
 
 router = APIRouter(tags=["Loan Items"])
 
-@router.get("/getloanitems", response_model=list[LoanItemRead])
+
+@router.get("/getloanitems", response_model=list[LoanItemRead],
+            dependencies=[Depends(get_current_user)])
 def list_loan_items(db: Session = Depends(get_db)):
     return crud.get_loan_items(db)
 
 
-@router.get("/getloanitem/{item_id}", response_model=LoanItemRead)
+@router.get("/getloanitem/{item_id}", response_model=LoanItemRead,
+            dependencies=[Depends(get_current_user)])
 def get_loan_item(item_id: int, db: Session = Depends(get_db)):
     item = crud.get_loan_item(db, item_id)
     if not item:
@@ -20,12 +24,14 @@ def get_loan_item(item_id: int, db: Session = Depends(get_db)):
     return item
 
 
-@router.post("/createloanitem", response_model=LoanItemRead, status_code=201)
+@router.post("/createloanitem", response_model=LoanItemRead, status_code=201,
+             dependencies=[Depends(require_role("ADMIN"))])
 def create_loan_item(data: LoanItemStandaloneCreate, db: Session = Depends(get_db)):
     return crud.create_loan_item(db, data.loan_id, data.tool_item_id)
 
 
-@router.patch("/updateloanitem/{item_id}", response_model=LoanItemRead)
+@router.patch("/updateloanitem/{item_id}", response_model=LoanItemRead,
+              dependencies=[Depends(require_role("ADMIN"))])
 def update_loan_item(item_id: int, data: LoanItemUpdate, db: Session = Depends(get_db)):
     item = crud.get_loan_item(db, item_id)
     if not item:
@@ -33,7 +39,8 @@ def update_loan_item(item_id: int, data: LoanItemUpdate, db: Session = Depends(g
     return crud.update_loan_item(db, item, data)
 
 
-@router.delete("/deleteloanitem/{item_id}", status_code=204)
+@router.delete("/deleteloanitem/{item_id}", status_code=204,
+               dependencies=[Depends(require_role("ADMIN"))])
 def delete_loan_item(item_id: int, db: Session = Depends(get_db)):
     item = crud.get_loan_item(db, item_id)
     if not item:
