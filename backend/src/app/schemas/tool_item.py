@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict
 from src.app.schemas.tool import ToolRead
 from src.app.schemas.tool_status import ToolStatusRead
 from src.app.schemas.tool_condition import ToolConditionRead
+from src.app.schemas.user import UserSlim
 
 
 class ToolItemBase(BaseModel):
@@ -16,8 +17,12 @@ class ToolItemBase(BaseModel):
     condition_id: int
 
 
-class ToolItemCreate(ToolItemBase):
-    pass
+class ToolItemCreate(BaseModel):
+    inventory_no: str
+    description: Optional[str] = None
+    tool_id: int
+    status_id: Optional[int] = None  # auto-set to AVAILABLE if not provided
+    condition_id: int
 
 
 class ToolItemUpdate(BaseModel):
@@ -43,5 +48,17 @@ class ToolItemRead(ToolItemBase):
     tool: ToolRead
     status: ToolStatusRead
     condition: ToolConditionRead
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ToolItemHistoryEntry(BaseModel):
+    loan_id: int
+    borrower: UserSlim
+    issued_at: datetime
+    due_at: datetime
+    returned_at: Optional[datetime] = None
+    return_condition: Optional[ToolConditionRead] = None
+    return_comment: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)

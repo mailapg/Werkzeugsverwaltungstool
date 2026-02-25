@@ -12,6 +12,7 @@ class LoanBase(BaseModel):
     borrower_user_id: int
     issued_by_user_id: int
     created_from_request_id: Optional[int] = None
+    comment: Optional[str] = None
 
 
 class LoanCreate(LoanBase):
@@ -39,6 +40,7 @@ class LoanRead(LoanBase):
     issued_at: datetime
     returned_at: Optional[datetime] = None
     returned_by_user_id: Optional[int] = None
+    is_overdue: bool = False
     borrower: UserSlim
     issuer: UserSlim
     return_processor: Optional[UserSlim] = None
