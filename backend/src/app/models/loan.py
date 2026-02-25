@@ -1,6 +1,6 @@
 from typing import Optional
 
-from sqlalchemy import ForeignKey, DateTime, func
+from sqlalchemy import ForeignKey, DateTime, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.app.db.base import Base
@@ -14,6 +14,7 @@ class Loan(Base):
     issued_at: Mapped["DateTime"] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     returned_at: Mapped[Optional["DateTime"]] = mapped_column(DateTime(timezone=True))
     due_at: Mapped["DateTime"] = mapped_column(DateTime(timezone=True), nullable=False)
+    comment: Mapped[Optional[str]] = mapped_column(Text)
 
     borrower_user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     issued_by_user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
