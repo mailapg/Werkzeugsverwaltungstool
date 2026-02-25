@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 
+from src.app.core.config import settings
 from src.app.db.session import SessionLocal
 from src.app.models import (
     Role,
@@ -53,15 +54,15 @@ def run_seed():
         # --- Department (lead_user_id is nullable -> create department first)
         dep = get_or_create(db, Department, name="Werkstatt")
 
-        # --- Create leader user for that department
+        # --- Create leader user for that department (credentials from .env)
         leader = get_or_create(
             db,
             User,
-            email="jmueller@werkstatt.local",
+            email=settings.SEED_MANAGER_EMAIL,
             defaults=dict(
-                firstname="Jonathan",
-                lastname="Müller",
-                passwordhash=pwd_context.hash("Passwort123!"),
+                firstname=settings.SEED_MANAGER_FIRSTNAME,
+                lastname=settings.SEED_MANAGER_LASTNAME,
+                passwordhash=pwd_context.hash(settings.SEED_MANAGER_PASSWORD),
                 role_id=role_map["DEPARTMENT_MANAGER"].id,
                 department_id=dep.id,
                 is_active=True,
