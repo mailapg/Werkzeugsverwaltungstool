@@ -1,23 +1,24 @@
 """Tests for loan requests endpoints."""
-from src.test.conftest import seed_lookup_data, create_tool, create_user
+from src.test.conftest import seed_lookup_data, create_tool, create_tool_item, create_user
 
 def _setup(client, db):
     from src.app.models.loan_request_status import LoanRequestStatus
     ids = seed_lookup_data(client)
     tool = create_tool(client, ids["category_id"])
+    tool_item = create_tool_item(client, tool["id"], ids["status_id"], ids["condition_id"])
     user = create_user(client, ids["role_id"], ids["department_id"])
     s = LoanRequestStatus(name="REQUESTED")
     db.add(s); db.commit()
-    return {"ids": ids, "tool_id": tool["id"], "user_id": user["id"], "status_id": s.id}
+    return {"ids": ids, "tool_id": tool["id"], "tool_item_id": tool_item["id"], "user_id": user["id"], "status_id": s.id}
 
 def test_create_loan_request(client, db):
     d = _setup(client, db)
-    r = client.post("/api/v1/createloanrequest", json={"requester_user_id": d["user_id"],"due_at": "2026-03-01T10:00:00Z","comment": "For project X","items": [{"tool_id": d["tool_id"], "quantity": 2}]})
+    r = client.post("/api/v1/createloanrequest", json={"requester_user_id": d["user_id"],"due_at": "2026-03-01T10:00:00Z","comment": "For project X","items": [{"tool_id": d["tool_id"], "quantity": 1}]})
     assert r.status_code == 201
     data = r.json()
     assert data["requester"]["id"] == d["user_id"]
     assert len(data["items"]) == 1
-    assert data["items"][0]["quantity"] == 2
+    assert data["items"][0]["quantity"] == 1
 
 def test_get_loan_requests_list(client, db):
     d = _setup(client, db)

@@ -1,11 +1,12 @@
 """Tests for loan request item endpoints."""
-from src.test.conftest import seed_lookup_data, create_tool, create_user
+from src.test.conftest import seed_lookup_data, create_tool, create_tool_item, create_user
 
 
 def _setup(client, db):
     from src.app.models.loan_request_status import LoanRequestStatus
     ids = seed_lookup_data(client)
     tool = create_tool(client, ids["category_id"])
+    create_tool_item(client, tool["id"], ids["status_id"], ids["condition_id"])
     user = create_user(client, ids["role_id"], ids["department_id"])
     s = LoanRequestStatus(name="REQUESTED")
     db.add(s); db.commit()
@@ -47,6 +48,7 @@ def test_create_loan_request_item(client, db):
     setup = _setup(client, db)
     req = _create_loan_request(client, setup)
     tool2 = create_tool(client, setup["ids"]["category_id"], name="Screwdriver")
+    # Create tool items so the standalone endpoint works (no availability check here)
     r = client.post("/api/v1/createloanrequestitem", json={
         "request_id": req["id"],
         "tool_id": tool2["id"],

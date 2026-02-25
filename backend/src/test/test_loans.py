@@ -2,14 +2,11 @@
 from src.test.conftest import seed_lookup_data, create_tool, create_tool_item, create_user
 
 def _setup_loan(client, db):
-    from src.app.models.tool_status import ToolStatus
     ids = seed_lookup_data(client)
     tool = create_tool(client, ids["category_id"])
     item = create_tool_item(client, tool["id"], ids["status_id"], ids["condition_id"])
     borrower = create_user(client, ids["role_id"], ids["department_id"])
     issuer = create_user(client, ids["role_id"], ids["department_id"], email="issuer@example.com")
-    loaned = ToolStatus(name="LOANED")
-    db.add(loaned); db.commit()
     return {"ids": ids, "tool_item_id": item["id"], "borrower_id": borrower["id"], "issuer_id": issuer["id"]}
 
 def _create_loan(client, setup):

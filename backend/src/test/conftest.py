@@ -3,12 +3,21 @@ Test configuration for the Werkzeugverwaltungstool.
 
 Each test gets a fresh in-memory SQLite database.
 The FastAPI dependency get_db is overridden with a test session.
+Auth (get_current_user) is bypassed with a mock ADMIN user so that
+existing CRUD tests don't need to send Bearer tokens.
 """
 import os
 
-# DATABASE_URL must be set BEFORE src.app.* is imported,
-# because session.py evaluates Settings on import.
+# DATABASE_URL and JWT_SECRET_KEY must be set BEFORE src.app.* is imported,
+# because config.py evaluates Settings on import.
 os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")
+os.environ.setdefault("JWT_SECRET_KEY", "test-secret-key")
+os.environ.setdefault("JWT_ALGORITHM", "HS256")
+os.environ.setdefault("ACCESS_TOKEN_EXPIRE_MINUTES", "60")
+os.environ.setdefault("SEED_MANAGER_EMAIL", "seed@test.local")
+os.environ.setdefault("SEED_MANAGER_PASSWORD", "Test123!")
+os.environ.setdefault("SEED_MANAGER_FIRSTNAME", "Seed")
+os.environ.setdefault("SEED_MANAGER_LASTNAME", "User")
 
 import pytest
 from fastapi.testclient import TestClient
@@ -30,6 +39,28 @@ engine = create_engine(
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
+# ---------------------------------------------------------------------------
+# Mock admin user – used to bypass auth in non-auth tests
+# ---------------------------------------------------------------------------
+
+class _MockRole:
+    name = "ADMIN"
+
+
+class _MockAdminUser:
+    id = 0
+    is_active = True
+    role = _MockRole()
+
+
+def _mock_get_current_user():
+    return _MockAdminUser()
+
+
+# ---------------------------------------------------------------------------
+# Fixtures
+# ---------------------------------------------------------------------------
+
 @pytest.fixture()
 def db():
     """Creates all tables, yields a session, then cleans up."""
@@ -44,7 +75,12 @@ def db():
 
 @pytest.fixture()
 def client(db):
-    """FastAPI TestClient with overridden DB dependency."""
+    """
+    FastAPI TestClient with:
+    - overridden DB dependency (in-memory SQLite)
+    - overridden get_current_user (mock ADMIN – no token required)
+    """
+    from src.app.auth.security import get_current_user
 
     def override_get_db():
         try:
@@ -53,6 +89,7 @@ def client(db):
             pass
 
     app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_current_user] = _mock_get_current_user
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()
@@ -146,13 +183,19 @@ def seed_lookup_data(client: TestClient) -> dict:
     """Creates all required lookup entries and returns their IDs."""
     role = create_role(client, "EMPLOYEE")
     dept = create_department(client, "Workshop")
-    ts = create_tool_status(client, "AVAILABLE")
+    ts_available = create_tool_status(client, "AVAILABLE")
+    ts_loaned = create_tool_status(client, "LOANED")
+    ts_defect = create_tool_status(client, "DEFECT")
+    create_tool_status(client, "RETIRED")
     tc = create_tool_condition(client, "OK")
+    create_tool_condition(client, "DEFECT")
     cat = create_tool_category(client, "Hand Tools")
     return {
         "role_id": role["id"],
         "department_id": dept["id"],
-        "status_id": ts["id"],
+        "status_id": ts_available["id"],
+        "loaned_status_id": ts_loaned["id"],
+        "defect_status_id": ts_defect["id"],
         "condition_id": tc["id"],
         "category_id": cat["id"],
     }
