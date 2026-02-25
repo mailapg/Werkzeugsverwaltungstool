@@ -1,10 +1,12 @@
-fastapi[all]
-uvicorn[standard]
-SQLAlchemy
-alembic
-pydantic-settings
-python-dotenv
-passlib==1.7.4
-bcrypt==3.2.2
-httpx
-python-jose[cryptography]
+fastapi[all]==0.128.8               # Framework + Swagger UI
+uvicorn[standard]==0.39.0           # Server
+SQLAlchemy==2.0.46                  # Datenbankzugriff (ORM)
+alembic==1.16.5                     # Datenbank-Migrationen
+pydantic-settings==2.11.0           # Config aus .env lesen
+python-dotenv==1.2.1                # .env Datei laden
+passlib==1.7.4                      # Passwort-Hashing
+bcrypt==3.2.2                       # Hashing-Algorithmus für passlib
+httpx==0.28.1                       # HTTP-Client für Tests
+python-jose[cryptography]==3.5.0    # JWT-Token
+qrcode[pil]==8.2                    # QR-Code Generierung
+pytest==8.4.2                       # Test-Framework
