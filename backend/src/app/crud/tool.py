@@ -9,8 +9,17 @@ def get_tool(db: Session, tool_id: int) -> Optional[Tool]:
     return db.get(Tool, tool_id)
 
 
-def get_tools(db: Session) -> list[Tool]:
-    return db.query(Tool).all()
+def get_tools(
+    db: Session,
+    name: Optional[str] = None,
+    category_id: Optional[int] = None,
+) -> list[Tool]:
+    q = db.query(Tool)
+    if name:
+        q = q.filter(Tool.tool_name.ilike(f"%{name}%"))
+    if category_id is not None:
+        q = q.filter(Tool.category_id == category_id)
+    return q.all()
 
 
 def create_tool(db: Session, data: ToolCreate) -> Tool:
