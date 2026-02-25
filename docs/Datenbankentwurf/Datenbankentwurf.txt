@@ -2,7 +2,7 @@
 
 Table roles {
   id integer [primary key, not null]
-  name varchar [not null, unique] // ADMIN, DEPARTMENT_MANAGER, EMPLOYEE, AZUBI
+  name varchar [not null, unique] // ADMIN, DEPARTMENT_MANAGER, EMPLOYEE
 }
 
 Table departments {
@@ -108,7 +108,8 @@ Table loan_requests {
   id integer [primary key, not null]
   comment text
   requested_at timestamp [not null]
-  due_at timestamp [not null]
+  loan_start_at timestamp // gewünschtes Ausleihedatum (optional)
+  due_at timestamp [not null]  // gewünschtes Rückgabedatum
   decision_at timestamp
   decision_comment text
   requester_user_id integer [not null]
@@ -138,6 +139,7 @@ Table loans {
   issued_at timestamp [not null]
   returned_at timestamp
   due_at timestamp [not null]
+  comment text
   returned_by_user_id integer
   borrower_user_id integer [not null]
   issued_by_user_id integer [not null]
@@ -161,3 +163,12 @@ Ref: loans.created_from_request_id > loan_requests.id
 Ref: loan_items.loan_id > loans.id
 Ref: loan_items.tool_item_id > tool_items.id
 Ref: loan_items.return_condition_id > tool_condition.id
+
+
+// Auth
+
+Table blacklisted_tokens {
+  id integer [primary key, not null]
+  token varchar [not null, unique]  // invalidierter JWT-Token
+  expires_at timestamp [not null]   // Token-Ablaufzeit (für späteres Cleanup)
+}
