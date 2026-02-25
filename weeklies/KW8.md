@@ -1,4 +1,4 @@
-# Wochenbericht – KW 8 / 2026 (17.02.–23.02.2026)
+# Wochenbericht – KW 8 / 2026 (16.02.–20.02.2026)
 
 > **Projekt:** Werkzeugverwaltungstool  
 > **Ausbildung:** Fachinformatikerin für Anwendungsentwicklung  

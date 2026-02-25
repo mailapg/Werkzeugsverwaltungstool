@@ -1,4 +1,4 @@
-# Wochenbericht – KW 7 / 2026 (10.02.–16.02.2026)
+# Wochenbericht – KW 7 / 2026 (09.02.–13.02.2026)
 
 > **Projekt:** Werkzeugverwaltungstool  
 > **Schwerpunkt der Woche:** Projektfindung, Planung & Anforderungsanalyse  
