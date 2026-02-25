@@ -17,9 +17,12 @@ from .loan_item import LoanItem
 from .tool_item_issue_status import ToolItemIssueStatus
 from .tool_item_issue import ToolItemIssue
 
+from .blacklisted_token import BlacklistedToken
+
 __all__ = [
     "Role", "Department", "User",
     "ToolCategory", "ToolStatus", "ToolCondition", "Tool", "ToolItem",
     "LoanRequestStatus", "LoanRequest", "LoanRequestItem",
-    "Loan", "LoanItem", "ToolItemIssueStatus", "ToolItemIssue"
+    "Loan", "LoanItem", "ToolItemIssueStatus", "ToolItemIssue",
+    "BlacklistedToken",
 ]
