@@ -140,3 +140,4 @@ cython_debug/
 .env
 .DS_Store
 .vscode/
+app.db
