@@ -24,6 +24,10 @@ def get_users(db: Session) -> list[User]:
     return db.query(User).all()
 
 
+def get_users_by_department(db: Session, department_id: int) -> list[User]:
+    return db.query(User).filter(User.department_id == department_id).all()
+
+
 def create_user(db: Session, data: UserCreate) -> User:
     payload = data.model_dump(exclude={"password"})
     payload["passwordhash"] = hash_password(data.password)
