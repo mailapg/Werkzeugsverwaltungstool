@@ -115,7 +115,7 @@ def create_user(
     client: TestClient,
     role_id: int,
     department_id: int,
-    email: str = "test@example.com",
+    email: str = "test@firma.local",
 ) -> dict:
     r = client.post(
         "/api/v1/createuser",
@@ -153,7 +153,7 @@ def create_tool_condition(client: TestClient, name: str = "OK") -> dict:
 def create_tool(client: TestClient, category_id: int, name: str = "Hammer") -> dict:
     r = client.post(
         "/api/v1/createtool",
-        json={"tool_name": name, "description": "Test description", "category_id": category_id},
+        data={"tool_name": name, "description": "Test description", "category_id": category_id},
     )
     assert r.status_code == 201
     return r.json()
