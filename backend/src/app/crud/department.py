@@ -13,6 +13,10 @@ def get_departments(db: Session) -> list[Department]:
     return db.query(Department).all()
 
 
+def get_department_by_lead(db: Session, lead_user_id: int) -> Optional[Department]:
+    return db.query(Department).filter(Department.lead_user_id == lead_user_id).first()
+
+
 def create_department(db: Session, data: DepartmentCreate) -> Department:
     department = Department(**data.model_dump())
     db.add(department)
