@@ -39,10 +39,11 @@ def update_loan_item(item_id: int, data: LoanItemUpdate, db: Session = Depends(g
     return crud.update_loan_item(db, item, data)
 
 
-@router.delete("/deleteloanitem/{item_id}", status_code=204,
+@router.delete("/deleteloanitem/{item_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_loan_item(item_id: int, db: Session = Depends(get_db)):
     item = crud.get_loan_item(db, item_id)
     if not item:
         raise HTTPException(status_code=404, detail="Loan item not found")
     crud.delete_loan_item(db, item)
+    return {"message": f"Ausleihposten #{item_id} wurde gelöscht", "id": item_id}

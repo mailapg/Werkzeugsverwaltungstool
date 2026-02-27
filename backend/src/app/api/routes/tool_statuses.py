@@ -39,10 +39,12 @@ def update_tool_status(status_id: int, data: ToolStatusUpdate, db: Session = Dep
     return crud.update_tool_status(db, status, data)
 
 
-@router.delete("/deletetoolstatus/{status_id}", status_code=204,
+@router.delete("/deletetoolstatus/{status_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_tool_status(status_id: int, db: Session = Depends(get_db)):
     status = crud.get_tool_status(db, status_id)
     if not status:
         raise HTTPException(status_code=404, detail="Tool status not found")
+    name = status.name
     crud.delete_tool_status(db, status)
+    return {"message": f"Werkzeugstatus '{name}' wurde gelöscht", "id": status_id}

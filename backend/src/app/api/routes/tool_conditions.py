@@ -39,10 +39,12 @@ def update_tool_condition(condition_id: int, data: ToolConditionUpdate, db: Sess
     return crud.update_tool_condition(db, condition, data)
 
 
-@router.delete("/deletetoolcondition/{condition_id}", status_code=204,
+@router.delete("/deletetoolcondition/{condition_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_tool_condition(condition_id: int, db: Session = Depends(get_db)):
     condition = crud.get_tool_condition(db, condition_id)
     if not condition:
         raise HTTPException(status_code=404, detail="Tool condition not found")
+    name = condition.name
     crud.delete_tool_condition(db, condition)
+    return {"message": f"Werkzeugzustand '{name}' wurde gelöscht", "id": condition_id}

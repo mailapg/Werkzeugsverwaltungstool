@@ -92,10 +92,12 @@ def retire_tool_item(item_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=409, detail=str(e))
 
 
-@router.delete("/deletetoolitem/{item_id}", status_code=204,
+@router.delete("/deletetoolitem/{item_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_tool_item(item_id: int, db: Session = Depends(get_db)):
     item = crud.get_tool_item(db, item_id)
     if not item:
         raise HTTPException(status_code=404, detail="Tool item not found")
+    inv_no = item.inventory_no
     crud.delete_tool_item(db, item)
+    return {"message": f"Werkzeugexemplar '{inv_no}' wurde gelöscht", "id": item_id}

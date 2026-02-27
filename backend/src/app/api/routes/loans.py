@@ -84,10 +84,11 @@ def return_loan(loan_id: int, data: ReturnLoanRequest, db: Session = Depends(get
     return crud.return_loan(db, loan, data.returned_by_user_id, item_returns)
 
 
-@router.delete("/deleteloan/{loan_id}", status_code=204,
+@router.delete("/deleteloan/{loan_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_loan(loan_id: int, db: Session = Depends(get_db)):
     loan = crud.get_loan(db, loan_id)
     if not loan:
         raise HTTPException(status_code=404, detail="Loan not found")
     crud.delete_loan(db, loan)
+    return {"message": f"Ausleihe #{loan_id} wurde gelöscht", "id": loan_id}

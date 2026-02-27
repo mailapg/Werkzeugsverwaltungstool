@@ -39,10 +39,11 @@ def update_role(role_id: int, data: RoleUpdate, db: Session = Depends(get_db)):
     return crud.update_role(db, role, data)
 
 
-@router.delete("/deleterole/{role_id}", status_code=204,
+@router.delete("/deleterole/{role_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_role(role_id: int, db: Session = Depends(get_db)):
     role = crud.get_role(db, role_id)
     if not role:
         raise HTTPException(status_code=404, detail="Role not found")
     crud.delete_role(db, role)
+    return {"message": f"Rolle '{role.name}' wurde gelöscht", "id": role_id}

@@ -45,10 +45,12 @@ def update_loan_request_status(
     return crud.update_loan_request_status(db, status, data)
 
 
-@router.delete("/deleteloanrequeststatus/{status_id}", status_code=204,
+@router.delete("/deleteloanrequeststatus/{status_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_loan_request_status(status_id: int, db: Session = Depends(get_db)):
     status = crud.get_loan_request_status(db, status_id)
     if not status:
         raise HTTPException(status_code=404, detail="Loan request status not found")
+    name = status.name
     crud.delete_loan_request_status(db, status)
+    return {"message": f"Anfragenstatus '{name}' wurde gelöscht", "id": status_id}

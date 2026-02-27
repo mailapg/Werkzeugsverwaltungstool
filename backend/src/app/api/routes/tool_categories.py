@@ -39,10 +39,12 @@ def update_tool_category(category_id: int, data: ToolCategoryUpdate, db: Session
     return crud.update_tool_category(db, category, data)
 
 
-@router.delete("/deletetoolcategory/{category_id}", status_code=204,
+@router.delete("/deletetoolcategory/{category_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_tool_category(category_id: int, db: Session = Depends(get_db)):
     category = crud.get_tool_category(db, category_id)
     if not category:
         raise HTTPException(status_code=404, detail="Tool category not found")
+    name = category.name
     crud.delete_tool_category(db, category)
+    return {"message": f"Kategorie '{name}' wurde gelöscht", "id": category_id}

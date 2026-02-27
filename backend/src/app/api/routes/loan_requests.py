@@ -69,10 +69,11 @@ def decide_loan_request(request_id: int, data: DecideRequest, db: Session = Depe
         raise HTTPException(status_code=409, detail=str(e))
 
 
-@router.delete("/deleteloanrequest/{request_id}", status_code=204,
+@router.delete("/deleteloanrequest/{request_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_loan_request(request_id: int, db: Session = Depends(get_db)):
     request = crud.get_loan_request(db, request_id)
     if not request:
         raise HTTPException(status_code=404, detail="Loan request not found")
     crud.delete_loan_request(db, request)
+    return {"message": f"Ausleiheanfrage #{request_id} wurde gelöscht", "id": request_id}

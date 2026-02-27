@@ -50,10 +50,12 @@ def resolve_tool_item_issue(issue_id: int, db: Session = Depends(get_db)):
     return crud.resolve_tool_item_issue(db, issue)
 
 
-@router.delete("/deletetoolitemissue/{issue_id}", status_code=204,
+@router.delete("/deletetoolitemissue/{issue_id}", status_code=200,
                dependencies=[Depends(require_role("ADMIN"))])
 def delete_tool_item_issue(issue_id: int, db: Session = Depends(get_db)):
     issue = crud.get_tool_item_issue(db, issue_id)
     if not issue:
         raise HTTPException(status_code=404, detail="Tool item issue not found")
+    title = issue.title
     crud.delete_tool_item_issue(db, issue)
+    return {"message": f"Issue '{title}' wurde gelöscht", "id": issue_id}
