@@ -41,3 +41,10 @@ def update_tool(db: Session, tool: Tool, data: ToolUpdate) -> Tool:
 def delete_tool(db: Session, tool: Tool) -> None:
     db.delete(tool)
     db.commit()
+
+
+def set_tool_image(db: Session, tool: Tool, filename: Optional[str]) -> Tool:
+    tool.image_filename = filename
+    db.commit()
+    db.refresh(tool)
+    return tool

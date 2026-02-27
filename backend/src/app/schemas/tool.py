@@ -24,6 +24,7 @@ class ToolUpdate(BaseModel):
 
 class ToolRead(ToolBase):
     id: int
+    image_filename: Optional[str] = None
     created_at: datetime
     updated_at: datetime
     category: ToolCategoryRead
