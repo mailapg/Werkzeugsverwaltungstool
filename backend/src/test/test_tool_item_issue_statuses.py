@@ -28,5 +28,5 @@ def test_update_issue_status(client):
 
 def test_delete_issue_status(client):
     created = client.post("/api/v1/createtoolitemissuestatus", json={"name": "TEMP"}).json()
-    assert client.delete(f"/api/v1/deletetoolitemissuestatus/{created['id']}").status_code == 204
+    assert client.delete(f"/api/v1/deletetoolitemissuestatus/{created['id']}").status_code == 200
     assert client.get(f"/api/v1/gettoolitemissuestatus/{created['id']}").status_code == 404

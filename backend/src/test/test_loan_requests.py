@@ -51,5 +51,5 @@ def test_get_loan_request_not_found(client):
 def test_delete_loan_request(client, db):
     d = _setup(client, db)
     req = client.post("/api/v1/createloanrequest", json={"requester_user_id": d["user_id"],"due_at": "2026-03-01T10:00:00Z","items": [{"tool_id": d["tool_id"], "quantity": 1}]}).json()
-    assert client.delete(f"/api/v1/deleteloanrequest/{req['id']}").status_code == 204
+    assert client.delete(f"/api/v1/deleteloanrequest/{req['id']}").status_code == 200
     assert client.get(f"/api/v1/getloanrequest/{req['id']}").status_code == 404

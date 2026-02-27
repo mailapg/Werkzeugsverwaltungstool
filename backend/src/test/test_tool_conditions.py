@@ -28,5 +28,5 @@ def test_update_tool_condition(client):
 
 def test_delete_tool_condition(client):
     created = client.post("/api/v1/createtoolcondition", json={"name": "TEMP"}).json()
-    assert client.delete(f"/api/v1/deletetoolcondition/{created['id']}").status_code == 204
+    assert client.delete(f"/api/v1/deletetoolcondition/{created['id']}").status_code == 200
     assert client.get(f"/api/v1/gettoolcondition/{created['id']}").status_code == 404

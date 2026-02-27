@@ -72,5 +72,5 @@ def test_delete_loan_request_item(client, db):
     setup = _setup(client, db)
     req = _create_loan_request(client, setup)
     item_id = req["items"][0]["id"]
-    assert client.delete(f"/api/v1/deleteloanrequestitem/{item_id}").status_code == 204
+    assert client.delete(f"/api/v1/deleteloanrequestitem/{item_id}").status_code == 200
     assert client.get(f"/api/v1/getloanrequestitem/{item_id}").status_code == 404

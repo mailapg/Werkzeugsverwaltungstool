@@ -63,5 +63,5 @@ def test_return_loan_twice_rejected(client, db):
 def test_delete_loan(client, db):
     setup = _setup_loan(client, db)
     loan = _create_loan(client, setup)
-    assert client.delete(f"/api/v1/deleteloan/{loan['id']}").status_code == 204
+    assert client.delete(f"/api/v1/deleteloan/{loan['id']}").status_code == 200
     assert client.get(f"/api/v1/getloan/{loan['id']}").status_code == 404

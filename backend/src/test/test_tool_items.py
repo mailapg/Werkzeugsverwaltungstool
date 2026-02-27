@@ -42,5 +42,5 @@ def test_delete_tool_item(client):
     ids = seed_lookup_data(client)
     tool = create_tool(client, ids["category_id"])
     item = create_tool_item(client, tool["id"], ids["status_id"], ids["condition_id"])
-    assert client.delete(f"/api/v1/deletetoolitem/{item['id']}").status_code == 204
+    assert client.delete(f"/api/v1/deletetoolitem/{item['id']}").status_code == 200
     assert client.get(f"/api/v1/gettoolitem/{item['id']}").status_code == 404

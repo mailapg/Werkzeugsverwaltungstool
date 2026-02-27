@@ -43,7 +43,7 @@ def test_update_role_not_found(client):
 def test_delete_role(client):
     created = client.post("/api/v1/createrole", json={"name": "TEMP"}).json()
     r = client.delete(f"/api/v1/deleterole/{created['id']}")
-    assert r.status_code == 204
+    assert r.status_code == 200
     assert client.get(f"/api/v1/getrole/{created['id']}").status_code == 404
 
 

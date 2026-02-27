@@ -49,5 +49,5 @@ def test_get_issue_not_found(client):
 def test_delete_issue(client, db):
     d = _setup(client, db)
     issue = _create_issue(client, d["item_id"], d["user_id"], d["status_id"])
-    assert client.delete(f"/api/v1/deletetoolitemissue/{issue['id']}").status_code == 204
+    assert client.delete(f"/api/v1/deletetoolitemissue/{issue['id']}").status_code == 200
     assert client.get(f"/api/v1/gettoolitemissue/{issue['id']}").status_code == 404

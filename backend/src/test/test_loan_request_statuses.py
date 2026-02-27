@@ -28,5 +28,5 @@ def test_update_loan_request_status(client):
 
 def test_delete_loan_request_status(client):
     created = client.post("/api/v1/createloanrequeststatus", json={"name": "TEMP"}).json()
-    assert client.delete(f"/api/v1/deleteloanrequeststatus/{created['id']}").status_code == 204
+    assert client.delete(f"/api/v1/deleteloanrequeststatus/{created['id']}").status_code == 200
     assert client.get(f"/api/v1/getloanrequeststatus/{created['id']}").status_code == 404

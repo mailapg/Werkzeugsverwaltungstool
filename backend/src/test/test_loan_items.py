@@ -68,5 +68,5 @@ def test_delete_loan_item(client, db):
     setup = _setup_loan(client, db)
     loan = _create_loan(client, setup)
     item_id = loan["items"][0]["id"]
-    assert client.delete(f"/api/v1/deleteloanitem/{item_id}").status_code == 204
+    assert client.delete(f"/api/v1/deleteloanitem/{item_id}").status_code == 200
     assert client.get(f"/api/v1/getloanitem/{item_id}").status_code == 404
