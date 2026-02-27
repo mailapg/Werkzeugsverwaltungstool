@@ -1,6 +1,8 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
 from src.app.db.session import SessionLocal, engine
@@ -9,14 +11,20 @@ import src.app.models  # noqa: F401 – register all models with Base.metadata
 from src.app.api.router import api_router
 from src.app.auth.router import router as auth_router
 
+STATIC_DIR = Path("static")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
+    (STATIC_DIR / "tool_images").mkdir(parents=True, exist_ok=True)
     yield
 
 
 app = FastAPI(title="Werkzeugverwaltungstool API", version="0.1.0", lifespan=lifespan)
+
+STATIC_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 app.include_router(auth_router)
 app.include_router(api_router, prefix="/api/v1")
