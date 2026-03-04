@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel, ConfigDict
 
-from src.app.schemas.tool_item import ToolItemSlim
+from src.app.schemas.tool_item import ToolItemRead
 from src.app.schemas.tool_condition import ToolConditionRead
 
 
@@ -29,7 +29,7 @@ class LoanItemUpdate(BaseModel):
 
 class LoanItemRead(LoanItemBase):
     id: int
-    tool_item: ToolItemSlim
+    tool_item: ToolItemRead
     return_condition: Optional[ToolConditionRead] = None
 
     model_config = ConfigDict(from_attributes=True)
