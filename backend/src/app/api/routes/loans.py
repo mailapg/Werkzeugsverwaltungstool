@@ -20,14 +20,18 @@ def _with_overdue_flag(loan) -> dict:
     return data
 
 
-@router.get("/getloans", response_model=list[LoanRead],
-            dependencies=[Depends(get_current_user)])
+@router.get("/getloans", response_model=list[LoanRead])
 def list_loans(
     db: Session = Depends(get_db),
-    borrower_user_id: Optional[int] = None,
+    current_user: User = Depends(get_current_user),
     active_only: bool = False,
 ):
-    return crud.get_loans(db, borrower_user_id=borrower_user_id, active_only=active_only)
+    """ADMIN sees all; DEPARTMENT_MANAGER sees their department; EMPLOYEE sees only their own."""
+    if current_user.role.name == "EMPLOYEE":
+        return crud.get_loans(db, borrower_user_id=current_user.id, active_only=active_only)
+    if current_user.role.name == "DEPARTMENT_MANAGER":
+        return crud.get_loans_by_department(db, current_user.department_id)
+    return crud.get_loans(db, active_only=active_only)
 
 
 @router.get("/getoverdueloans", response_model=list[LoanRead],
@@ -48,7 +52,7 @@ def list_overdue_loans(
 def get_loan(loan_id: int, db: Session = Depends(get_db)):
     loan = crud.get_loan(db, loan_id)
     if not loan:
-        raise HTTPException(status_code=404, detail="Loan not found")
+        raise HTTPException(status_code=404, detail="Ausleihe nicht gefunden")
     return loan
 
 
@@ -67,7 +71,7 @@ def create_loan(data: LoanCreate, db: Session = Depends(get_db)):
 def update_loan(loan_id: int, data: LoanUpdate, db: Session = Depends(get_db)):
     loan = crud.get_loan(db, loan_id)
     if not loan:
-        raise HTTPException(status_code=404, detail="Loan not found")
+        raise HTTPException(status_code=404, detail="Ausleihe nicht gefunden")
     return crud.update_loan(db, loan, data)
 
 
@@ -77,9 +81,9 @@ def return_loan(loan_id: int, data: ReturnLoanRequest, db: Session = Depends(get
     """Any authenticated user may return a loan (manual or via QR code scan)."""
     loan = crud.get_loan(db, loan_id)
     if not loan:
-        raise HTTPException(status_code=404, detail="Loan not found")
+        raise HTTPException(status_code=404, detail="Ausleihe nicht gefunden")
     if loan.returned_at is not None:
-        raise HTTPException(status_code=409, detail="Loan has already been returned")
+        raise HTTPException(status_code=409, detail="Diese Ausleihe wurde bereits zurückgegeben")
     item_returns = [i.model_dump() for i in data.items]
     return crud.return_loan(db, loan, data.returned_by_user_id, item_returns)
 
@@ -89,6 +93,6 @@ def return_loan(loan_id: int, data: ReturnLoanRequest, db: Session = Depends(get
 def delete_loan(loan_id: int, db: Session = Depends(get_db)):
     loan = crud.get_loan(db, loan_id)
     if not loan:
-        raise HTTPException(status_code=404, detail="Loan not found")
+        raise HTTPException(status_code=404, detail="Ausleihe nicht gefunden")
     crud.delete_loan(db, loan)
     return {"message": f"Ausleihe #{loan_id} wurde gelöscht", "id": loan_id}
