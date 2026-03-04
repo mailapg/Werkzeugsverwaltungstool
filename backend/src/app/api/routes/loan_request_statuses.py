@@ -14,13 +14,13 @@ router = APIRouter(tags=["Loan Request Statuses"])
 
 
 @router.get("/getloanrequeststatuses", response_model=list[LoanRequestStatusRead],
-            dependencies=[Depends(require_role("ADMIN"))])
+            dependencies=[Depends(require_role("ADMIN", "DEPARTMENT_MANAGER", "EMPLOYEE"))])
 def list_loan_request_statuses(db: Session = Depends(get_db)):
     return crud.get_loan_request_statuses(db)
 
 
 @router.get("/getloanrequeststatus/{status_id}", response_model=LoanRequestStatusRead,
-            dependencies=[Depends(require_role("ADMIN"))])
+            dependencies=[Depends(require_role("ADMIN", "DEPARTMENT_MANAGER", "EMPLOYEE"))])
 def get_loan_request_status(status_id: int, db: Session = Depends(get_db)):
     status = crud.get_loan_request_status(db, status_id)
     if not status:
