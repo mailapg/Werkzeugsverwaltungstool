@@ -15,7 +15,9 @@ def list_loan_requests(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    """ADMIN sees all requests; DEPARTMENT_MANAGER sees only their department's requests."""
+    """ADMIN sees all; DEPARTMENT_MANAGER sees their department; EMPLOYEE sees only their own."""
+    if current_user.role.name == "EMPLOYEE":
+        return crud.get_loan_requests_by_user(db, current_user.id)
     if current_user.role.name == "DEPARTMENT_MANAGER":
         return crud.get_loan_requests_by_department(db, current_user.department_id)
     return crud.get_loan_requests(db)
