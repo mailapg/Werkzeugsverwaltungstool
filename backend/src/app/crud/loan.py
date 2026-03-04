@@ -44,6 +44,16 @@ def get_loans_by_borrower(db: Session, user_id: int) -> list[Loan]:
     return db.query(Loan).filter(Loan.borrower_user_id == user_id).all()
 
 
+def get_loans_by_department(db: Session, department_id: int) -> list[Loan]:
+    from src.app.models.user import User
+    return (
+        db.query(Loan)
+        .join(User, Loan.borrower_user_id == User.id)
+        .filter(User.department_id == department_id)
+        .all()
+    )
+
+
 def get_overdue_loans(db: Session, department_id: Optional[int] = None) -> list[Loan]:
     """Returns all active loans past their due date."""
     now = datetime.now(tz=timezone.utc)
@@ -62,7 +72,7 @@ def _check_tool_item_availability(db: Session, tool_item_id: int) -> None:
     available_id = _get_status_id_by_name(db, STATUS_AVAILABLE)
     item = db.get(ToolItem, tool_item_id)
     if not item or item.status_id != available_id:
-        raise ValueError(f"Tool item {tool_item_id} is not available for loan.")
+        raise ValueError(f"Exemplar {tool_item_id} ist nicht verfügbar.")
 
 
 def create_loan(db: Session, data: LoanCreate) -> Loan:
@@ -126,7 +136,7 @@ def create_loan_from_request(db: Session, request, approver_user_id: int) -> Loa
         )
         if len(available_items) < req_item.quantity:
             raise ValueError(
-                f"Cannot approve: not enough available items for tool {req_item.tool_id}."
+                f"Nicht genügend verfügbare Exemplare für Werkzeug {req_item.tool_id}."
             )
         for tool_item in available_items:
             db.add(LoanItem(loan_id=loan.id, tool_item_id=tool_item.id))
