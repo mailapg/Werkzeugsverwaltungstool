@@ -10,13 +10,13 @@ router = APIRouter(tags=["Tool Statuses"])
 
 
 @router.get("/gettoolstatuses", response_model=list[ToolStatusRead],
-            dependencies=[Depends(require_role("ADMIN"))])
+            dependencies=[Depends(require_role("ADMIN", "DEPARTMENT_MANAGER", "EMPLOYEE"))])
 def list_tool_statuses(db: Session = Depends(get_db)):
     return crud.get_tool_statuses(db)
 
 
 @router.get("/gettoolstatus/{status_id}", response_model=ToolStatusRead,
-            dependencies=[Depends(require_role("ADMIN"))])
+            dependencies=[Depends(require_role("ADMIN", "DEPARTMENT_MANAGER", "EMPLOYEE"))])
 def get_tool_status(status_id: int, db: Session = Depends(get_db)):
     status = crud.get_tool_status(db, status_id)
     if not status:
