@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { loanRequestsApi, lookupsApi, toolsApi } from '../api/services'
+import jsQR from 'jsqr'
+import { loanRequestsApi, lookupsApi, toolsApi, toolItemsApi } from '../api/services'
 import type { LoanRequest, LoanRequestStatus, Tool } from '../types'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
@@ -9,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import { Skeleton } from '../components/ui/skeleton'
 import { toast } from 'sonner'
-import { Plus, Trash2, ClipboardList, CheckCircle, XCircle, X } from 'lucide-react'
+import { Plus, Trash2, ClipboardList, CheckCircle, XCircle, X, AlertTriangle, Search, ScanLine } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { cn } from '../lib/utils'
 import { loanRequestStatusLabel as statusLabel, t } from '../lib/labels'
@@ -31,10 +32,14 @@ export default function LoanRequestsPage() {
   const [tools, setTools] = useState<Tool[]>([])
   const [loading, setLoading] = useState(true)
   const [filterStatus, setFilterStatus] = useState(searchParams.get('filter') ?? 'all')
+  const [search, setSearch] = useState('')
+  const [qrToolId, setQrToolId] = useState<number | null>(null)
+  const [scanning, setScanning] = useState(false)
+  const scanInputRef = useRef<HTMLInputElement>(null)
 
   // Create dialog
   const [createOpen, setCreateOpen] = useState(false)
-  const [dueAt, setDueAt] = useState('')
+  const [daysNeeded, setDaysNeeded] = useState('')
   const [comment, setComment] = useState('')
   const [items, setItems] = useState<RequestItem[]>([{ tool_id: '', quantity: 1 }])
   const [saving, setSaving] = useState(false)
@@ -63,6 +68,45 @@ export default function LoanRequestsPage() {
   }
   useEffect(() => { load() }, [])
 
+  const handleScanFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setScanning(true)
+    try {
+      const img = new Image()
+      img.src = URL.createObjectURL(file)
+      await new Promise(resolve => { img.onload = resolve })
+      const canvas = document.createElement('canvas')
+      canvas.width = img.width
+      canvas.height = img.height
+      canvas.getContext('2d')!.drawImage(img, 0, 0)
+      const imageData = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height)
+      const code = jsQR(imageData.data, imageData.width, imageData.height)
+      if (code) {
+        const parts = code.data.split(':')
+        if (parts[0] === 'tool_item' && parts[1]) {
+          try {
+            const toolItem = await toolItemsApi.get(Number(parts[1]))
+            setQrToolId(toolItem.tool_id)
+            setSearch(toolItem.tool.tool_name)
+            toast.success(`QR erkannt: ${toolItem.tool.tool_name}`)
+          } catch {
+            setQrToolId(null)
+            setSearch(parts[2] ?? code.data)
+            toast.success('QR erkannt')
+          }
+        } else {
+          setQrToolId(null)
+          setSearch(code.data)
+          toast.success('QR erkannt')
+        }
+      } else {
+        toast.error('Kein QR-Code erkannt')
+      }
+    } catch { toast.error('Fehler beim Lesen des QR-Codes') }
+    finally { setScanning(false); e.target.value = '' }
+  }
+
   const openDecide = (req: LoanRequest) => {
     setDecideRequest(req)
     setDecideStatusId('')
@@ -71,7 +115,7 @@ export default function LoanRequestsPage() {
   }
 
   const openCreate = () => {
-    setDueAt('')
+    setDaysNeeded('')
     setComment('')
     setItems([{ tool_id: '', quantity: 1 }])
     setCreateOpen(true)
@@ -83,7 +127,7 @@ export default function LoanRequestsPage() {
     setItems(i => i.map((item, n) => n === idx ? { ...item, [field]: value } : item))
 
   const handleCreate = async () => {
-    if (!dueAt || items.some(i => !i.tool_id)) {
+    if (!daysNeeded || Number(daysNeeded) < 1 || items.some(i => !i.tool_id)) {
       toast.error('Bitte alle Felder ausfüllen')
       return
     }
@@ -91,7 +135,7 @@ export default function LoanRequestsPage() {
     try {
       const newRequest = await loanRequestsApi.create({
         requester_user_id: user!.id,
-        due_at: new Date(dueAt).toISOString(),
+        days_needed: Number(daysNeeded),
         comment: comment || null,
         items: items.map(i => ({ tool_id: Number(i.tool_id), quantity: i.quantity })),
       })
@@ -145,9 +189,23 @@ export default function LoanRequestsPage() {
     catch { toast.error('Fehler') }
   }
 
-  const filtered = filterStatus === 'all'
-    ? requests
-    : requests.filter(r => r.status.name === filterStatus)
+  const now = new Date()
+  const isOverdue = (req: LoanRequest) =>
+    !!req.due_at && (req.status.name === 'APPROVED' || req.status.name === 'REQUESTED') && new Date(req.due_at) < now
+
+  const filtered = requests
+    .filter(r => filterStatus === 'all' || r.status.name === filterStatus)
+    .filter(r => {
+      if (qrToolId !== null) {
+        // QR-Scan: exakter Abgleich per tool_id → zeigt auch Anfragen mit mehreren Werkzeugen
+        return r.items.some(i => i.tool_id === qrToolId)
+      }
+      if (!search.trim()) return true
+      return (
+        r.items.some(i => i.tool.tool_name.toLowerCase().includes(search.toLowerCase())) ||
+        `${r.requester.firstname} ${r.requester.lastname}`.toLowerCase().includes(search.toLowerCase())
+      )
+    })
 
   const decideableStatuses = statuses.filter(s => s.name === 'APPROVED' || s.name === 'REJECTED')
 
@@ -165,7 +223,32 @@ export default function LoanRequestsPage() {
         </Button>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-48 max-w-sm">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Input
+            placeholder="Werkzeug oder Antragsteller…"
+            value={search}
+            onChange={e => { setSearch(e.target.value); setQrToolId(null) }}
+            className="pl-9 pr-9"
+          />
+          {search && (
+            <button onClick={() => { setSearch(''); setQrToolId(null) }} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <X size={14} />
+            </button>
+          )}
+        </div>
+        <Button
+          variant="outline"
+          title="QR-Code scannen"
+          disabled={scanning}
+          onClick={() => scanInputRef.current?.click()}
+          className="gap-2"
+        >
+          <ScanLine size={16} />
+          {scanning ? 'Lesen…' : 'QR scannen'}
+        </Button>
+        <input ref={scanInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleScanFile} />
         <Select value={filterStatus} onValueChange={setFilterStatus}>
           <SelectTrigger className="w-48"><SelectValue placeholder="Status" /></SelectTrigger>
           <SelectContent>
@@ -191,17 +274,29 @@ export default function LoanRequestsPage() {
               {filtered.length === 0 ? (
                 <tr><td colSpan={6} className="px-5 py-10 text-center text-slate-400">Keine Anfragen gefunden</td></tr>
               ) : filtered.map(req => (
-                <tr key={req.id} className="hover:bg-slate-50 cursor-pointer" onClick={() => openDetail(req)}>
-                  <td className="px-5 py-3 font-medium text-slate-800">{req.requester.firstname} {req.requester.lastname}</td>
+                <tr key={req.id} className={cn('cursor-pointer', isOverdue(req) ? 'bg-red-50 hover:bg-red-100' : 'hover:bg-slate-50')} onClick={() => openDetail(req)}>
+                  <td className="px-5 py-3 font-medium text-slate-800">
+                    <div className="flex items-center gap-2">
+                      {isOverdue(req) && <AlertTriangle size={13} className="text-red-500 shrink-0" />}
+                      {req.requester.firstname} {req.requester.lastname}
+                    </div>
+                  </td>
                   <td className="px-5 py-3 text-slate-600 text-xs">
                     {req.items.map(i => `${i.tool.tool_name} ×${i.quantity}`).join(', ')}
                   </td>
                   <td className="px-5 py-3">
-                    <span className={cn('text-xs font-medium px-2.5 py-1 rounded-full', statusColor[req.status.name] ?? 'bg-slate-100 text-slate-600')}>
-                      {statusLabel[req.status.name] ?? req.status.name}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className={cn('text-xs font-medium px-2.5 py-1 rounded-full', statusColor[req.status.name] ?? 'bg-slate-100 text-slate-600')}>
+                        {statusLabel[req.status.name] ?? req.status.name}
+                      </span>
+                      {isOverdue(req) && <span className="text-xs font-semibold text-red-600 bg-red-100 px-2 py-0.5 rounded-full">Überfällig</span>}
+                    </div>
                   </td>
-                  <td className="px-5 py-3 text-slate-500">{new Date(req.due_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
+                  <td className={cn('px-5 py-3 font-medium', isOverdue(req) ? 'text-red-600' : 'text-slate-500')}>
+                    {req.due_at
+                      ? new Date(req.due_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })
+                      : req.days_needed ? <span className="text-slate-400 italic text-xs">{req.days_needed} Tage (nach Genehmigung)</span> : '–'}
+                  </td>
                   <td className="px-5 py-3 text-slate-500">{new Date(req.requested_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
                   <td className="px-5 py-3" onClick={e => e.stopPropagation()}>
                     <div className="flex gap-1 justify-end">
@@ -254,7 +349,13 @@ export default function LoanRequestsPage() {
                 </div>
                 <div className="space-y-0.5">
                   <p className="text-xs font-medium text-slate-400 uppercase tracking-wide">Fällig am</p>
-                  <p className="text-slate-700">{new Date(detailRequest.due_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
+                  <p className="text-slate-700">
+                    {detailRequest.due_at
+                      ? new Date(detailRequest.due_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })
+                      : detailRequest.days_needed
+                        ? <span className="italic text-slate-400">{detailRequest.days_needed} Tage – wird bei Genehmigung berechnet</span>
+                        : '–'}
+                  </p>
                 </div>
                 {detailRequest.decision_at && (
                   <div className="space-y-0.5">
@@ -320,8 +421,15 @@ export default function LoanRequestsPage() {
           </DialogHeader>
           <div className="space-y-4 py-2">
             <div className="space-y-1.5">
-              <Label>Fälligkeitsdatum</Label>
-              <Input type="date" value={dueAt} onChange={e => setDueAt(e.target.value)} min={new Date().toISOString().split('T')[0]} />
+              <Label>Wie viele Tage benötigst du?</Label>
+              <Input
+                type="number"
+                min={1}
+                placeholder="z.B. 7"
+                value={daysNeeded}
+                onChange={e => setDaysNeeded(e.target.value)}
+              />
+              <p className="text-xs text-slate-400">Das Fälligkeitsdatum wird nach der Genehmigung berechnet.</p>
             </div>
             <div className="space-y-1.5">
               <Label>Kommentar (optional)</Label>
@@ -370,7 +478,7 @@ export default function LoanRequestsPage() {
               <div className="bg-slate-50 rounded-lg p-3 text-sm space-y-1">
                 <p><span className="text-slate-500">Antragsteller:</span> <span className="font-medium">{decideRequest.requester.firstname} {decideRequest.requester.lastname}</span></p>
                 <p><span className="text-slate-500">Werkzeuge:</span> {decideRequest.items.map(i => `${i.tool.tool_name} ×${i.quantity}`).join(', ')}</p>
-                <p><span className="text-slate-500">Fällig am:</span> {new Date(decideRequest.due_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
+                <p><span className="text-slate-500">Benötigte Tage:</span> {decideRequest.days_needed ?? '–'}</p>
                 {decideRequest.comment && <p><span className="text-slate-500">Kommentar:</span> {decideRequest.comment}</p>}
               </div>
               <div className="flex gap-3">

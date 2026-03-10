@@ -106,7 +106,8 @@ export interface LoanRequest {
   approver: UserSlim | null
   request_status_id: number
   status: LoanRequestStatus
-  due_at: string
+  due_at: string | null
+  days_needed: number | null
   requested_at: string
   decision_at: string | null
   decision_comment: string | null

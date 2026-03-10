@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import jsQR from 'jsqr'
 import { loansApi, lookupsApi } from '../api/services'
 import type { Loan, ToolCondition } from '../types'
 import { Button } from '../components/ui/button'
@@ -10,7 +11,7 @@ import { Input } from '../components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import { Skeleton } from '../components/ui/skeleton'
 import { toast } from 'sonner'
-import { Trash2, ArrowLeftRight, RotateCcw, AlertTriangle } from 'lucide-react'
+import { Trash2, ArrowLeftRight, RotateCcw, AlertTriangle, Search, ScanLine, X } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { cn } from '../lib/utils'
 import { toolConditionLabel, t } from '../lib/labels'
@@ -38,6 +39,9 @@ export default function LoansPage() {
   const [conditions, setConditions] = useState<ToolCondition[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<FilterMode>((searchParams.get('filter') as FilterMode) ?? 'all')
+  const [search, setSearch] = useState('')
+  const [scanning, setScanning] = useState(false)
+  const scanInputRef = useRef<HTMLInputElement>(null)
 
   // Detail dialog
   const [detailOpen, setDetailOpen] = useState(false)
@@ -56,6 +60,36 @@ export default function LoansPage() {
       .finally(() => setLoading(false))
   }
   useEffect(() => { load() }, [])
+
+  const handleScanFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setScanning(true)
+    try {
+      const img = new Image()
+      img.src = URL.createObjectURL(file)
+      await new Promise(resolve => { img.onload = resolve })
+      const canvas = document.createElement('canvas')
+      canvas.width = img.width
+      canvas.height = img.height
+      canvas.getContext('2d')!.drawImage(img, 0, 0)
+      const imageData = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height)
+      const code = jsQR(imageData.data, imageData.width, imageData.height)
+      if (code) {
+        const parts = code.data.split(':')
+        if (parts[0] === 'tool_item' && parts[2]) {
+          setSearch(parts[2])
+          toast.success(`QR erkannt: ${parts[2]}`)
+        } else {
+          setSearch(code.data)
+          toast.success('QR erkannt')
+        }
+      } else {
+        toast.error('Kein QR-Code erkannt')
+      }
+    } catch { toast.error('Fehler beim Lesen des QR-Codes') }
+    finally { setScanning(false); e.target.value = '' }
+  }
 
   const openDetail = (loan: Loan) => { setDetailLoan(loan); setDetailOpen(true) }
 
@@ -113,6 +147,13 @@ export default function LoansPage() {
       if (filter === 'returned') return !!l.returned_at
       return true
     })
+    .filter(l => !search.trim() ||
+      l.items.some(i =>
+        i.tool_item.inventory_no.toLowerCase().includes(search.toLowerCase()) ||
+        i.tool_item.tool.tool_name.toLowerCase().includes(search.toLowerCase())
+      ) ||
+      `${l.borrower.firstname} ${l.borrower.lastname}`.toLowerCase().includes(search.toLowerCase())
+    )
     .sort((a, b) => {
       const aActive = !a.returned_at ? 0 : 1
       const bActive = !b.returned_at ? 0 : 1
@@ -140,6 +181,34 @@ export default function LoansPage() {
           <span><strong>{overdueCount}</strong> überfällige Ausleihe{overdueCount > 1 ? 'n' : ''}</span>
         </div>
       )}
+
+      <div className="flex gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-48 max-w-sm">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Input
+            placeholder="Inventar-Nr., Werkzeug oder Ausleiher…"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="pl-9 pr-9"
+          />
+          {search && (
+            <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <X size={14} />
+            </button>
+          )}
+        </div>
+        <Button
+          variant="outline"
+          title="QR-Code scannen"
+          disabled={scanning}
+          onClick={() => scanInputRef.current?.click()}
+          className="gap-2"
+        >
+          <ScanLine size={16} />
+          {scanning ? 'Lesen…' : 'QR scannen'}
+        </Button>
+        <input ref={scanInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleScanFile} />
+      </div>
 
       <div className="flex gap-2">
         {([['all', 'Alle'], ['active', 'Aktiv'], ['overdue', 'Überfällig'], ['returned', 'Zurückgegeben']] as const).map(([val, label]) => (
@@ -183,9 +252,23 @@ export default function LoansPage() {
                     <td className={cn('px-5 py-3 font-medium', loan.is_overdue ? 'text-red-600' : 'text-slate-500')}>{new Date(loan.due_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
                     <td className="px-5 py-3 text-slate-500">{loan.returned_at ? new Date(loan.returned_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '–'}</td>
                     <td className="px-5 py-3">
-                      <span className={cn('text-xs font-medium px-2.5 py-1 rounded-full', status.color)}>
-                        {status.label}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        {!loan.returned_at && (
+                          <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-blue-100 text-blue-700">
+                            Aktiv
+                          </span>
+                        )}
+                        {loan.returned_at && (
+                          <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-500">
+                            Zurückgegeben
+                          </span>
+                        )}
+                        {loan.is_overdue && (
+                          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-red-100 text-red-700 flex items-center gap-1">
+                            <AlertTriangle size={11} />Überfällig
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="px-5 py-3" onClick={e => e.stopPropagation()}>
                       <div className="flex gap-1 justify-end">
