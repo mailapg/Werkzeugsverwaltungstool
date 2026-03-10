@@ -11,7 +11,8 @@ from src.app.schemas.loan_request_item import LoanRequestItemCreate, LoanRequest
 class LoanRequestBase(BaseModel):
     comment: Optional[str] = None
     loan_start_at: Optional[datetime] = None
-    due_at: datetime
+    due_at: Optional[datetime] = None
+    days_needed: Optional[int] = None
     requester_user_id: int
 
 

@@ -13,9 +13,11 @@ class LoanRequest(Base):
 
     comment: Mapped[Optional[str]] = mapped_column(Text)
 
+    days_needed: Mapped[Optional[int]] = mapped_column(nullable=True)
+
     requested_at: Mapped["DateTime"] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     loan_start_at: Mapped[Optional["DateTime"]] = mapped_column(DateTime(timezone=True))
-    due_at: Mapped["DateTime"] = mapped_column(DateTime(timezone=True), nullable=False)
+    due_at: Mapped[Optional["DateTime"]] = mapped_column(DateTime(timezone=True), nullable=True)
 
     decision_at: Mapped[Optional["DateTime"]] = mapped_column(DateTime(timezone=True))
     decision_comment: Mapped[Optional[str]] = mapped_column(Text)

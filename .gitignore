@@ -154,6 +154,7 @@ node_modules
 dist
 dist-ssr
 *.local
+frontend/.vite/
 
 # Editor directories and files
 .vscode/*

@@ -1,5 +1,5 @@
 from typing import Optional
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from sqlalchemy.orm import Session
 
@@ -73,6 +73,7 @@ def create_loan_request(db: Session, data: LoanRequestCreate) -> LoanRequest:
         comment=data.comment,
         loan_start_at=data.loan_start_at,
         due_at=data.due_at,
+        days_needed=data.days_needed,
         requester_user_id=data.requester_user_id,
         request_status_id=_get_requested_status_id(db),
     )
@@ -111,13 +112,18 @@ def decide_loan_request(
     request.request_status_id = status_id
     request.decision_comment = decision_comment
     request.decision_at = datetime.now(tz=timezone.utc)
-    db.flush()
 
     # Auto-create a Loan when the request is approved
     status_obj = db.get(LoanRequestStatus, status_id)
     if status_obj and status_obj.name == _STATUS_APPROVED:
+        # Calculate due_at from decision_at + days_needed
+        if request.days_needed and request.due_at is None:
+            request.due_at = request.decision_at + timedelta(days=request.days_needed)
+        db.flush()
         from src.app.crud.loan import create_loan_from_request
         create_loan_from_request(db, request, approver_user_id)
+    else:
+        db.flush()
 
     db.commit()
     db.refresh(request)
