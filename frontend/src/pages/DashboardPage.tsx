@@ -216,7 +216,7 @@ export default function DashboardPage() {
               {loans.filter(l => l.is_overdue).slice(0, 5).map(loan => (
                 <div key={loan.id} className="flex items-center justify-between text-sm py-1 border-b border-slate-100 last:border-0">
                   <span className="text-slate-700">#{loan.id} – {loan.borrower.firstname} {loan.borrower.lastname}</span>
-                  <Badge variant="destructive">{new Date(loan.due_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</Badge>
+                  <Badge variant="destructive">{loan.due_at ? new Date(loan.due_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '–'}</Badge>
                 </div>
               ))}
             </div>
