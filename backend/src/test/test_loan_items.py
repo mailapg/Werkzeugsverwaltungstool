@@ -48,7 +48,6 @@ def test_create_loan_item(client, db):
     loan = _create_loan(client, setup)
     item2 = create_tool_item(
         client, setup["tool"]["id"], setup["ids"]["status_id"], setup["ids"]["condition_id"],
-        inventory_no="INV-002",
     )
     r = client.post("/api/v1/createloanitem", json={"loan_id": loan["id"], "tool_item_id": item2["id"]})
     assert r.status_code == 201

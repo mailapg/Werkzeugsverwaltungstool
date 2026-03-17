@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from src.app.auth.security import get_current_user, require_role
+from src.app.core.role_ids import ADMIN_ID
 from src.app.db.deps import get_db
 from src.app.models.role import Role
 from src.app.schemas.department import DepartmentCreate, DepartmentUpdate, DepartmentRead
@@ -29,13 +30,22 @@ def get_department(department_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/createdepartment", response_model=DepartmentRead, status_code=201,
-             dependencies=[Depends(require_role("ADMIN"))])
+             dependencies=[Depends(require_role(ADMIN_ID))])
 def create_department(data: DepartmentCreate, db: Session = Depends(get_db)):
-    return crud.create_department(db, data)
+    dept = crud.create_department(db, data)
+    if data.lead_user_id:
+        role_manager = db.query(Role).filter(Role.name == "DEPARTMENT_MANAGER").first()
+        leader = crud_user.get_user(db, data.lead_user_id)
+        if leader and role_manager:
+            leader.role_id = role_manager.id
+            leader.department_id = dept.id
+            db.commit()
+            db.refresh(dept)
+    return dept
 
 
 @router.patch("/updatedepartment/{department_id}", response_model=DepartmentRead,
-              dependencies=[Depends(require_role("ADMIN"))])
+              dependencies=[Depends(require_role(ADMIN_ID))])
 def update_department(department_id: int, data: DepartmentUpdate, db: Session = Depends(get_db)):
     department = crud.get_department(db, department_id)
     if not department:
@@ -90,7 +100,7 @@ def update_department(department_id: int, data: DepartmentUpdate, db: Session = 
 
 
 @router.delete("/deletedepartment/{department_id}", status_code=200,
-               dependencies=[Depends(require_role("ADMIN"))])
+               dependencies=[Depends(require_role(ADMIN_ID))])
 def delete_department(department_id: int, db: Session = Depends(get_db)):
     department = crud.get_department(db, department_id)
     if not department:

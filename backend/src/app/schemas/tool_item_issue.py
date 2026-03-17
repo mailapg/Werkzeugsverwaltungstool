@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict
 
-from src.app.schemas.tool_item import ToolItemSlim
+from src.app.schemas.tool_item import ToolItemRead
 from src.app.schemas.tool_item_issue_status import ToolItemIssueStatusRead
 from src.app.schemas.user import UserSlim
 
@@ -33,7 +33,7 @@ class ToolItemIssueRead(ToolItemIssueBase):
     id: int
     reported_at: datetime
     resolved_at: Optional[datetime] = None
-    tool_item: ToolItemSlim
+    tool_item: ToolItemRead
     reported_by: UserSlim
     status: ToolItemIssueStatusRead
 

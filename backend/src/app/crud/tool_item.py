@@ -1,3 +1,4 @@
+import re
 from typing import Optional
 from sqlalchemy.orm import Session
 
@@ -7,6 +8,17 @@ from src.app.schemas.tool_item import ToolItemCreate, ToolItemUpdate
 
 _STATUS_AVAILABLE = "AVAILABLE"
 _STATUS_RETIRED = "RETIRED"
+
+
+def _next_inventory_no(db: Session) -> str:
+    """Returns the next inventory number in format INV-XXXX, incrementing from the current maximum."""
+    rows = db.query(ToolItem.inventory_no).all()
+    max_num = 0
+    for (inv_no,) in rows:
+        m = re.fullmatch(r"INV-(\d+)", inv_no or "")
+        if m:
+            max_num = max(max_num, int(m.group(1)))
+    return f"INV-{max_num + 1:04d}"
 
 
 def _get_status_id_by_name(db: Session, name: str) -> Optional[int]:
@@ -47,7 +59,7 @@ def create_tool_item(db: Session, data: ToolItemCreate) -> ToolItem:
         status_id = _get_status_id_by_name(db, _STATUS_AVAILABLE)
 
     item = ToolItem(
-        inventory_no=data.inventory_no,
+        inventory_no=_next_inventory_no(db),
         description=data.description,
         tool_id=data.tool_id,
         status_id=status_id,

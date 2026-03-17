@@ -68,11 +68,19 @@ def get_overdue_loans(db: Session, department_id: Optional[int] = None) -> list[
 
 
 def _check_tool_item_availability(db: Session, tool_item_id: int) -> None:
-    """Raises ValueError if the tool item is not AVAILABLE."""
+    """Raises ValueError if the tool item is not AVAILABLE or is on an active loan."""
     available_id = _get_status_id_by_name(db, STATUS_AVAILABLE)
     item = db.get(ToolItem, tool_item_id)
     if not item or item.status_id != available_id:
         raise ValueError(f"Exemplar {tool_item_id} ist nicht verfügbar.")
+    active_loan = (
+        db.query(LoanItem)
+        .join(Loan, LoanItem.loan_id == Loan.id)
+        .filter(LoanItem.tool_item_id == tool_item_id, Loan.returned_at.is_(None))
+        .first()
+    )
+    if active_loan:
+        raise ValueError(f"Exemplar {tool_item_id} ist bereits aktiv ausgeliehen.")
 
 
 def create_loan(db: Session, data: LoanCreate) -> Loan:
@@ -127,10 +135,20 @@ def create_loan_from_request(db: Session, request, approver_user_id: int) -> Loa
     db.add(loan)
     db.flush()
 
+    active_loan_item_ids = (
+        db.query(LoanItem.tool_item_id)
+        .join(Loan, LoanItem.loan_id == Loan.id)
+        .filter(Loan.returned_at.is_(None))
+    )
+
     for req_item in request.items:
         available_items = (
             db.query(ToolItem)
-            .filter(ToolItem.tool_id == req_item.tool_id, ToolItem.status_id == available_id)
+            .filter(
+                ToolItem.tool_id == req_item.tool_id,
+                ToolItem.status_id == available_id,
+                ~ToolItem.id.in_(active_loan_item_ids),
+            )
             .limit(req_item.quantity)
             .all()
         )

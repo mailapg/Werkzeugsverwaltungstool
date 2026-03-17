@@ -45,11 +45,13 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 
 class _MockRole:
     name = "ADMIN"
+    id = 1
 
 
 class _MockAdminUser:
     id = 0
     is_active = True
+    role_id = 1
     role = _MockRole()
 
 
@@ -164,12 +166,10 @@ def create_tool_item(
     tool_id: int,
     status_id: int,
     condition_id: int,
-    inventory_no: str = "INV-001",
 ) -> dict:
     r = client.post(
         "/api/v1/createtoolitem",
         json={
-            "inventory_no": inventory_no,
             "tool_id": tool_id,
             "status_id": status_id,
             "condition_id": condition_id,

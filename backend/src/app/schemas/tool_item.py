@@ -18,7 +18,6 @@ class ToolItemBase(BaseModel):
 
 
 class ToolItemCreate(BaseModel):
-    inventory_no: str
     description: Optional[str] = None
     tool_id: int
     status_id: Optional[int] = None  # auto-set to AVAILABLE if not provided
@@ -26,7 +25,6 @@ class ToolItemCreate(BaseModel):
 
 
 class ToolItemUpdate(BaseModel):
-    inventory_no: Optional[str] = None
     description: Optional[str] = None
     tool_id: Optional[int] = None
     status_id: Optional[int] = None
