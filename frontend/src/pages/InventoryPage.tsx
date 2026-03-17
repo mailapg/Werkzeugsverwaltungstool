@@ -41,7 +41,7 @@ export default function InventoryPage() {
   const [filterStatus, setFilterStatus] = useState<string>('all')
   const [open, setOpen] = useState(false)
   const [editItem, setEditItem] = useState<ToolItem | null>(null)
-  const [form, setForm] = useState({ inventory_no: '', description: '', tool_id: '', status_id: '', condition_id: '' })
+  const [form, setForm] = useState({ description: '', tool_id: '', status_id: '', condition_id: '' })
   const [saving, setSaving] = useState(false)
 
   // QR anzeigen
@@ -62,10 +62,10 @@ export default function InventoryPage() {
   }
   useEffect(() => { load() }, [])
 
-  const openCreate = () => { setEditItem(null); setForm({ inventory_no: '', description: '', tool_id: '', status_id: '', condition_id: '' }); setOpen(true) }
+  const openCreate = () => { setEditItem(null); setForm({ description: '', tool_id: '', status_id: '', condition_id: '' }); setOpen(true) }
   const openEdit = (item: ToolItem) => {
     setEditItem(item)
-    setForm({ inventory_no: item.inventory_no, description: item.description ?? '', tool_id: String(item.tool_id), status_id: String(item.status_id), condition_id: String(item.condition_id) })
+    setForm({ description: item.description ?? '', tool_id: String(item.tool_id), status_id: String(item.status_id), condition_id: String(item.condition_id) })
     setOpen(true)
   }
 
@@ -98,12 +98,10 @@ export default function InventoryPage() {
       if (code) {
         // Format: "tool_item:{id}:{inventory_no}"
         const parts = code.data.split(':')
-        if (parts[0] === 'tool_item' && parts[2]) {
-          setSearch(parts[2])
-          toast.success(`QR erkannt: ${parts[2]}`)
+        if (parts[0] === 'tool_item' && parts[1]) {
+          navigate('/inventory/detail', { state: { id: Number(parts[1]) } })
         } else {
-          setSearch(code.data)
-          toast.success('QR erkannt')
+          toast.error('Ungültiger QR-Code')
         }
       } else {
         toast.error('Kein QR-Code erkannt')
@@ -118,7 +116,7 @@ export default function InventoryPage() {
   const handleSave = async () => {
     setSaving(true)
     try {
-      const payload = { inventory_no: form.inventory_no, description: form.description, tool_id: Number(form.tool_id), status_id: Number(form.status_id), condition_id: Number(form.condition_id) }
+      const payload = { description: form.description, tool_id: Number(form.tool_id), status_id: Number(form.status_id), condition_id: Number(form.condition_id) }
       if (editItem) { await toolItemsApi.update(editItem.id, payload); toast.success('Exemplar aktualisiert') }
       else { await toolItemsApi.create(payload); toast.success('Exemplar erstellt') }
       setOpen(false); load()
@@ -282,10 +280,12 @@ export default function InventoryPage() {
         <DialogContent>
           <DialogHeader><DialogTitle>{editItem ? 'Exemplar bearbeiten' : 'Neues Exemplar'}</DialogTitle></DialogHeader>
           <div className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <Label>Inventar-Nr.</Label>
-              <Input value={form.inventory_no} onChange={e => setForm(f => ({ ...f, inventory_no: e.target.value }))} />
-            </div>
+            {editItem && (
+              <div className="space-y-1.5">
+                <Label>Inventar-Nr.</Label>
+                <Input value={editItem.inventory_no} readOnly className="bg-slate-50 text-slate-500 cursor-not-allowed" />
+              </div>
+            )}
             <div className="space-y-1.5">
               <Label>Werkzeug</Label>
               <Select value={form.tool_id} onValueChange={v => setForm(f => ({ ...f, tool_id: v }))}>
@@ -298,14 +298,14 @@ export default function InventoryPage() {
                 <Label>Status</Label>
                 <Select value={form.status_id} onValueChange={v => setForm(f => ({ ...f, status_id: v }))}>
                   <SelectTrigger><SelectValue placeholder="Wählen…" /></SelectTrigger>
-                  <SelectContent>{statuses.map(s => <SelectItem key={s.id} value={String(s.id)}>{s.name}</SelectItem>)}</SelectContent>
+                  <SelectContent>{statuses.map(s => <SelectItem key={s.id} value={String(s.id)}>{t(toolStatusLabel, s.name)}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
               <div className="space-y-1.5">
                 <Label>Zustand</Label>
                 <Select value={form.condition_id} onValueChange={v => setForm(f => ({ ...f, condition_id: v }))}>
                   <SelectTrigger><SelectValue placeholder="Wählen…" /></SelectTrigger>
-                  <SelectContent>{conditions.map(c => <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>)}</SelectContent>
+                  <SelectContent>{conditions.map(c => <SelectItem key={c.id} value={String(c.id)}>{t(toolConditionLabel, c.name)}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
             </div>

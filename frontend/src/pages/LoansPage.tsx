@@ -142,7 +142,7 @@ export default function LoansPage() {
 
   const filtered = loans
     .filter(l => {
-      if (filter === 'active') return !l.returned_at && !l.is_overdue
+      if (filter === 'active') return !l.returned_at
       if (filter === 'overdue') return !l.returned_at && l.is_overdue
       if (filter === 'returned') return !!l.returned_at
       return true

@@ -10,7 +10,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Skeleton } from '../components/ui/skeleton'
 import { toast } from 'sonner'
 import { Plus, Pencil, Trash2, Building2, Users } from 'lucide-react'
-import { roleLabel, t } from '../lib/labels'
 import { useAuth } from '../contexts/AuthContext'
 
 export default function DepartmentsPage() {
@@ -51,7 +50,7 @@ export default function DepartmentsPage() {
       if (editDept) {
         await departmentsApi.update(editDept.id, payload); toast.success('Abteilung aktualisiert')
       } else {
-        await departmentsApi.create({ name }); toast.success('Abteilung erstellt')
+        await departmentsApi.create(payload); toast.success('Abteilung erstellt')
       }
       setOpen(false); load()
     } catch (e: unknown) {
@@ -198,20 +197,20 @@ export default function DepartmentsPage() {
               <Label>Name</Label>
               <Input value={name} onChange={e => setName(e.target.value)} />
             </div>
-            {editDept && (
-              <div className="space-y-1.5">
-                <Label>Abteilungsleiter</Label>
-                <Select value={leadId} onValueChange={setLeadId}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="none">– Kein Leiter –</SelectItem>
-                    {users.filter(u => u.department_id === editDept.id).map(u => (
-                      <SelectItem key={u.id} value={String(u.id)}>{u.firstname} {u.lastname}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
+            <div className="space-y-1.5">
+              <Label>Abteilungsleiter</Label>
+              <Select value={leadId} onValueChange={setLeadId}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">– Kein Leiter –</SelectItem>
+                  {users.map(u => (
+                    <SelectItem key={u.id} value={String(u.id)}>
+                      {u.firstname} {u.lastname} ({u.role?.name ?? ''})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setOpen(false)}>Abbrechen</Button>

@@ -24,6 +24,8 @@ export default function ToolsPage() {
   const [open, setOpen] = useState(false)
   const [editTool, setEditTool] = useState<Tool | null>(null)
   const [form, setForm] = useState({ tool_name: '', description: '', category_id: '' })
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
   const [detailTool, setDetailTool] = useState<Tool | null>(null)
 
@@ -35,11 +37,25 @@ export default function ToolsPage() {
   }
   useEffect(() => { load() }, [])
 
-  const openCreate = () => { setEditTool(null); setForm({ tool_name: '', description: '', category_id: '' }); setOpen(true) }
+  const openCreate = () => {
+    setEditTool(null)
+    setForm({ tool_name: '', description: '', category_id: '' })
+    setImageFile(null)
+    setImagePreview(null)
+    setOpen(true)
+  }
   const openEdit = (t: Tool) => {
     setEditTool(t)
     setForm({ tool_name: t.tool_name, description: t.description ?? '', category_id: String(t.category_id) })
+    setImageFile(null)
+    setImagePreview(t.image_filename ? `${API_URL}/static/tool_images/${t.image_filename}` : null)
     setOpen(true)
+  }
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null
+    setImageFile(file)
+    setImagePreview(file ? URL.createObjectURL(file) : (editTool?.image_filename ? `${API_URL}/static/tool_images/${editTool.image_filename}` : null))
   }
 
   const handleSave = async () => {
@@ -49,6 +65,7 @@ export default function ToolsPage() {
       fd.append('tool_name', form.tool_name)
       fd.append('description', form.description)
       fd.append('category_id', form.category_id)
+      if (imageFile) fd.append('image', imageFile)
       if (editTool) {
         await toolsApi.update(editTool.id, fd); toast.success('Werkzeug aktualisiert')
       } else {
@@ -179,19 +196,33 @@ export default function ToolsPage() {
           <DialogHeader><DialogTitle>{editTool ? 'Werkzeug bearbeiten' : 'Neues Werkzeug'}</DialogTitle></DialogHeader>
           <div className="space-y-4 py-2">
             <div className="space-y-1.5">
-              <Label>Name</Label>
+              <Label>Name <span className="text-red-500">*</span></Label>
               <Input value={form.tool_name} onChange={e => setForm(f => ({ ...f, tool_name: e.target.value }))} />
             </div>
             <div className="space-y-1.5">
-              <Label>Beschreibung</Label>
-              <Input value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
-            </div>
-            <div className="space-y-1.5">
-              <Label>Kategorie</Label>
+              <Label>Kategorie <span className="text-red-500">*</span></Label>
               <Select value={form.category_id} onValueChange={v => setForm(f => ({ ...f, category_id: v }))}>
                 <SelectTrigger><SelectValue placeholder="Wählen…" /></SelectTrigger>
                 <SelectContent>{categories.map(c => <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label>Beschreibung</Label>
+              <Input value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} placeholder="Optional…" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Bild</Label>
+              <div className="flex items-center gap-3">
+                <div className="w-16 h-16 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0">
+                  {imagePreview
+                    ? <img src={imagePreview} alt="Vorschau" className="w-full h-full object-cover" />
+                    : <Package size={24} className="text-slate-300" />}
+                </div>
+                <div className="flex-1">
+                  <Input type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={handleImageChange} className="text-sm" />
+                  <p className="text-xs text-slate-400 mt-1">JPEG, PNG, WebP oder GIF</p>
+                </div>
+              </div>
             </div>
           </div>
           <DialogFooter>

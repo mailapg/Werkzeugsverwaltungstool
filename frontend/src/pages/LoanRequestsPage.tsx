@@ -86,14 +86,13 @@ export default function LoanRequestsPage() {
         const parts = code.data.split(':')
         if (parts[0] === 'tool_item' && parts[1]) {
           try {
-            const toolItem = await toolItemsApi.get(Number(parts[1]))
-            setQrToolId(toolItem.tool_id)
-            setSearch(toolItem.tool.tool_name)
-            toast.success(`QR erkannt: ${toolItem.tool.tool_name}`)
+            const item = await toolItemsApi.get(Number(parts[1]))
+            setSearch('')
+            setQrToolId(item.tool_id)
+            toast.success(`QR erkannt: ${parts[2] ?? parts[1]}`)
           } catch {
             setQrToolId(null)
-            setSearch(parts[2] ?? code.data)
-            toast.success('QR erkannt')
+            toast.error('Exemplar nicht gefunden')
           }
         } else {
           setQrToolId(null)
@@ -141,7 +140,7 @@ export default function LoanRequestsPage() {
       })
 
       // DEPARTMENT_MANAGER genehmigt die eigene Anfrage sofort → Ausleihe wird direkt erstellt
-      if (user?.role === 'DEPARTMENT_MANAGER') {
+      if (isManager && !isAdmin) {
         const approvedStatus = statuses.find(s => s.name === 'APPROVED')
         if (approvedStatus) {
           await loanRequestsApi.decide(newRequest.id, {
@@ -414,10 +413,10 @@ export default function LoanRequestsPage() {
       </Dialog>
 
       {/* Create Dialog */}
-      <Dialog open={createOpen} onOpenChange={setCreateOpen} modal={false}>
+      <Dialog open={createOpen} onOpenChange={setCreateOpen}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>{user?.role === 'DEPARTMENT_MANAGER' ? 'Neue Ausleihe' : 'Neue Ausleiheanfrage'}</DialogTitle>
+            <DialogTitle>{isManager && !isAdmin ? 'Neue Ausleihe' : 'Neue Ausleiheanfrage'}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-2">
             <div className="space-y-1.5">
@@ -463,7 +462,7 @@ export default function LoanRequestsPage() {
           <DialogFooter>
             <Button variant="outline" onClick={() => setCreateOpen(false)}>Abbrechen</Button>
             <Button onClick={handleCreate} disabled={saving} className="bg-blue-600 hover:bg-blue-700">
-              {saving ? 'Erstellen…' : user?.role === 'DEPARTMENT_MANAGER' ? 'Ausleihe erstellen' : 'Anfrage senden'}
+              {saving ? 'Erstellen…' : isManager && !isAdmin ? 'Ausleihe erstellen' : 'Anfrage senden'}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import jsQR from 'jsqr'
 import { issuesApi, toolItemsApi, lookupsApi } from '../api/services'
 import type { ToolItemIssue, ToolItem, ToolItemIssueStatus } from '../types'
 import { Button } from '../components/ui/button'
@@ -8,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import { Skeleton } from '../components/ui/skeleton'
 import { toast } from 'sonner'
-import { Plus, Pencil, Trash2, AlertTriangle } from 'lucide-react'
+import { Plus, Pencil, Trash2, AlertTriangle, Search, ScanLine, X, Wrench, CalendarDays, User } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { cn } from '../lib/utils'
 import { issueStatusLabel, t } from '../lib/labels'
@@ -21,7 +22,7 @@ const statusColor: Record<string, string> = {
 }
 
 export default function IssuesPage() {
-  const { user, isAdmin } = useAuth()
+  const { user, isAdmin, isManager } = useAuth()
   const [issues, setIssues] = useState<ToolItemIssue[]>([])
   const [toolItems, setToolItems] = useState<ToolItem[]>([])
   const [issueStatuses, setIssueStatuses] = useState<ToolItemIssueStatus[]>([])
@@ -30,11 +31,21 @@ export default function IssuesPage() {
   const [editIssue, setEditIssue] = useState<ToolItemIssue | null>(null)
   const [form, setForm] = useState({ title: '', description: '', tool_item_id: '', status_id: '' })
   const [saving, setSaving] = useState(false)
+  const [detailIssue, setDetailIssue] = useState<ToolItemIssue | null>(null)
+  const [detailOpen, setDetailOpen] = useState(false)
+  const [search, setSearch] = useState('')
+  const [filterStatus, setFilterStatus] = useState('all')
+  const [scanning, setScanning] = useState(false)
+  const scanInputRef = useRef<HTMLInputElement>(null)
 
   const load = () => {
     setLoading(true)
-    Promise.all([issuesApi.list(), toolItemsApi.list(), lookupsApi.issueStatuses()])
-      .then(([i, t, s]) => { setIssues(i); setToolItems(t); setIssueStatuses(s) })
+    Promise.allSettled([issuesApi.list(), toolItemsApi.list(), lookupsApi.issueStatuses()])
+      .then(([i, t, s]) => {
+        if (i.status === 'fulfilled') setIssues(i.value)
+        if (t.status === 'fulfilled') setToolItems(t.value)
+        if (s.status === 'fulfilled') setIssueStatuses(s.value)
+      })
       .finally(() => setLoading(false))
   }
   useEffect(() => { load() }, [])
@@ -67,6 +78,45 @@ export default function IssuesPage() {
     catch { toast.error('Fehler') }
   }
 
+  const handleScanFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setScanning(true)
+    try {
+      const img = new Image()
+      img.src = URL.createObjectURL(file)
+      await new Promise(resolve => { img.onload = resolve })
+      const canvas = document.createElement('canvas')
+      canvas.width = img.width
+      canvas.height = img.height
+      canvas.getContext('2d')!.drawImage(img, 0, 0)
+      const imageData = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height)
+      const code = jsQR(imageData.data, imageData.width, imageData.height)
+      if (code) {
+        const parts = code.data.split(':')
+        if (parts[0] === 'tool_item' && parts[2]) {
+          setSearch(parts[2])
+          toast.success(`QR erkannt: ${parts[2]}`)
+        } else {
+          setSearch(code.data)
+          toast.success('QR erkannt')
+        }
+      } else {
+        toast.error('Kein QR-Code erkannt')
+      }
+    } catch { toast.error('Fehler beim Lesen des QR-Codes') }
+    finally { setScanning(false); e.target.value = '' }
+  }
+
+  const filtered = issues
+    .filter(issue => filterStatus === 'all' || issue.status.name === filterStatus)
+    .filter(issue => !search.trim() ||
+      issue.tool_item.inventory_no.toLowerCase().includes(search.toLowerCase()) ||
+      issue.tool_item.tool.tool_name.toLowerCase().includes(search.toLowerCase()) ||
+      issue.title.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => new Date(b.reported_at).getTime() - new Date(a.reported_at).getTime()
+    )
+
   return (
     <div className="p-8 space-y-6">
       <div className="flex items-center justify-between">
@@ -77,6 +127,41 @@ export default function IssuesPage() {
         <Button onClick={openCreate} className="bg-blue-600 hover:bg-blue-700">
           <Plus size={16} className="mr-2" />Neue Meldung
         </Button>
+      </div>
+
+      <div className="flex gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-48 max-w-sm">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Input
+            placeholder="Inventar-Nr., Werkzeug oder Titel…"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="pl-9 pr-9"
+          />
+          {search && (
+            <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+              <X size={14} />
+            </button>
+          )}
+        </div>
+        <Button
+          variant="outline"
+          title="QR-Code scannen"
+          disabled={scanning}
+          onClick={() => scanInputRef.current?.click()}
+          className="gap-2"
+        >
+          <ScanLine size={16} />
+          {scanning ? 'Lesen…' : 'QR scannen'}
+        </Button>
+        <input ref={scanInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleScanFile} />
+        <Select value={filterStatus} onValueChange={setFilterStatus}>
+          <SelectTrigger className="w-48"><SelectValue placeholder="Status" /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Alle Status</SelectItem>
+            {issueStatuses.map(s => <SelectItem key={s.id} value={s.name}>{t(issueStatusLabel, s.name)}</SelectItem>)}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
@@ -92,8 +177,10 @@ export default function IssuesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {issues.map(issue => (
-                <tr key={issue.id} className="hover:bg-slate-50">
+              {filtered.length === 0 ? (
+                <tr><td colSpan={6} className="px-5 py-10 text-center text-slate-400">Keine Meldungen gefunden</td></tr>
+              ) : filtered.map(issue => (
+                <tr key={issue.id} className="hover:bg-slate-50 cursor-pointer" onClick={() => { setDetailIssue(issue); setDetailOpen(true) }}>
                   <td className="px-5 py-3 font-medium text-slate-800">{issue.title}</td>
                   <td className="px-5 py-3 text-slate-500 font-mono text-xs">{issue.tool_item.inventory_no}</td>
                   <td className="px-5 py-3 text-slate-600">{issue.reported_by.firstname} {issue.reported_by.lastname}</td>
@@ -103,9 +190,9 @@ export default function IssuesPage() {
                     </span>
                   </td>
                   <td className="px-5 py-3 text-slate-500">{new Date(issue.reported_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
-                  <td className="px-5 py-3">
+                  <td className="px-5 py-3" onClick={e => e.stopPropagation()}>
                     <div className="flex gap-1 justify-end">
-                      <Button size="sm" variant="ghost" onClick={() => openEdit(issue)}><Pencil size={14} /></Button>
+                      {isManager && <Button size="sm" variant="ghost" onClick={() => openEdit(issue)}><Pencil size={14} /></Button>}
                       {isAdmin && <Button size="sm" variant="ghost" className="text-red-500 hover:bg-red-50" onClick={() => handleDelete(issue)}><Trash2 size={14} /></Button>}
                     </div>
                   </td>
@@ -115,6 +202,69 @@ export default function IssuesPage() {
           </table>
         )}
       </div>
+
+      {detailIssue && (
+        <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <AlertTriangle size={18} />
+                {detailIssue.title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="text-sm divide-y divide-slate-100">
+              <div className="flex items-center py-3 gap-3">
+                <Wrench size={14} className="text-slate-400 shrink-0" />
+                <span className="w-32 shrink-0 text-xs font-semibold text-slate-400 uppercase tracking-wide">Werkzeug</span>
+                <span className="text-slate-800">{detailIssue.tool_item.tool.tool_name}</span>
+              </div>
+              <div className="flex items-center py-3 gap-3">
+                <Wrench size={14} className="text-slate-400 shrink-0" />
+                <span className="w-32 shrink-0 text-xs font-semibold text-slate-400 uppercase tracking-wide">Inventar-Nr.</span>
+                <span className="font-mono text-xs text-slate-800">{detailIssue.tool_item.inventory_no}</span>
+              </div>
+              <div className="flex items-center py-3 gap-3">
+                <User size={14} className="text-slate-400 shrink-0" />
+                <span className="w-32 shrink-0 text-xs font-semibold text-slate-400 uppercase tracking-wide">Gemeldet von</span>
+                <span className="text-slate-800">{detailIssue.reported_by.firstname} {detailIssue.reported_by.lastname}</span>
+              </div>
+              <div className="flex items-center py-3 gap-3">
+                <CalendarDays size={14} className="text-slate-400 shrink-0" />
+                <span className="w-32 shrink-0 text-xs font-semibold text-slate-400 uppercase tracking-wide">Gemeldet am</span>
+                <span className="text-slate-800">{new Date(detailIssue.reported_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
+              </div>
+              <div className="flex items-center py-3 gap-3">
+                <AlertTriangle size={14} className="text-slate-400 shrink-0" />
+                <span className="w-32 shrink-0 text-xs font-semibold text-slate-400 uppercase tracking-wide">Status</span>
+                <span className={cn('text-xs font-medium px-2.5 py-1 rounded-full', statusColor[detailIssue.status.name] ?? 'bg-slate-100 text-slate-600')}>
+                  {t(issueStatusLabel, detailIssue.status.name)}
+                </span>
+              </div>
+              {detailIssue.resolved_at && (
+                <div className="flex items-center py-3 gap-3">
+                  <CalendarDays size={14} className="text-slate-400 shrink-0" />
+                  <span className="w-32 shrink-0 text-xs font-semibold text-slate-400 uppercase tracking-wide">Gelöst am</span>
+                  <span className="text-slate-800">{new Date(detailIssue.resolved_at).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
+                </div>
+              )}
+            </div>
+            {detailIssue.description && (
+              <div>
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Beschreibung</p>
+                <p className="text-slate-700 bg-slate-50 rounded-lg px-3 py-2 text-sm">{detailIssue.description}</p>
+              </div>
+            )}
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setDetailOpen(false)}>Schließen</Button>
+              {isManager && (
+                <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => { setDetailOpen(false); openEdit(detailIssue) }}>
+                  <Pencil size={14} className="mr-2" />Bearbeiten
+                </Button>
+              )}
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
