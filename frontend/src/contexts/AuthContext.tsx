@@ -3,9 +3,12 @@ import { jwtDecode } from 'jwt-decode'
 import { authApi } from '../api/services'
 import type { AuthUser } from '../types'
 
+const ADMIN_ID = 1
+const MANAGER_ID = 2
+
 interface JwtPayload {
   sub: string
-  role: string
+  role_id: number
   department_id: number
 }
 
@@ -23,7 +26,7 @@ const AuthContext = createContext<AuthContextType | null>(null)
 function decodeUser(token: string): AuthUser | null {
   try {
     const payload = jwtDecode<JwtPayload>(token)
-    return { id: Number(payload.sub), role: payload.role, department_id: payload.department_id }
+    return { id: Number(payload.sub), role_id: payload.role_id, department_id: payload.department_id }
   } catch { return null }
 }
 
@@ -58,8 +61,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       token,
       login,
       logout,
-      isAdmin: user?.role === 'ADMIN',
-      isManager: user?.role === 'DEPARTMENT_MANAGER' || user?.role === 'ADMIN',
+      isAdmin: user?.role_id === ADMIN_ID,
+      isManager: user?.role_id === MANAGER_ID || user?.role_id === ADMIN_ID,
     }}>
       {children}
     </AuthContext.Provider>

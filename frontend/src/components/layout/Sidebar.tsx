@@ -7,22 +7,26 @@ import { useAuth } from '../../contexts/AuthContext'
 import { cn } from '../../lib/utils'
 import { roleLabel, t } from '../../lib/labels'
 
+const ADMIN_ID = 1
+const MANAGER_ID = 2
+const EMPLOYEE_ID = 3
+
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard', roles: ['ADMIN', 'DEPARTMENT_MANAGER', 'EMPLOYEE'] },
-  { to: '/tools', icon: Wrench, label: 'Werkzeuge', roles: ['ADMIN', 'DEPARTMENT_MANAGER', 'EMPLOYEE'] },
-  { to: '/inventory', icon: Package, label: 'Inventar', roles: ['ADMIN', 'DEPARTMENT_MANAGER', 'EMPLOYEE'] },
-  { to: '/loan-requests', icon: ClipboardList, label: 'Ausleiheanfragen', roles: ['ADMIN', 'DEPARTMENT_MANAGER', 'EMPLOYEE'] },
-  { to: '/loans', icon: ArrowLeftRight, label: 'Ausleihen', roles: ['ADMIN', 'DEPARTMENT_MANAGER', 'EMPLOYEE'] },
-  { to: '/issues', icon: AlertTriangle, label: 'Meldungen', roles: ['ADMIN'] },
-  { to: '/departments', icon: Building2, label: 'Abteilungen', roles: ['ADMIN', 'DEPARTMENT_MANAGER'] },
-  { to: '/users', icon: Users, label: 'Nutzer', roles: ['ADMIN'] },
-  { to: '/roles', icon: Shield, label: 'Rollen', roles: ['ADMIN'] },
+  { to: '/', icon: LayoutDashboard, label: 'Dashboard', roles: [ADMIN_ID, MANAGER_ID, EMPLOYEE_ID] },
+  { to: '/tools', icon: Wrench, label: 'Werkzeuge', roles: [ADMIN_ID, MANAGER_ID, EMPLOYEE_ID] },
+  { to: '/inventory', icon: Package, label: 'Inventar', roles: [ADMIN_ID, MANAGER_ID, EMPLOYEE_ID] },
+  { to: '/loan-requests', icon: ClipboardList, label: 'Ausleiheanfragen', roles: [ADMIN_ID, MANAGER_ID, EMPLOYEE_ID] },
+  { to: '/loans', icon: ArrowLeftRight, label: 'Ausleihen', roles: [ADMIN_ID, MANAGER_ID, EMPLOYEE_ID] },
+  { to: '/issues', icon: AlertTriangle, label: 'Meldungen', roles: [ADMIN_ID, MANAGER_ID, EMPLOYEE_ID] },
+  { to: '/departments', icon: Building2, label: 'Abteilungen', roles: [ADMIN_ID, MANAGER_ID] },
+  { to: '/users', icon: Users, label: 'Nutzer', roles: [ADMIN_ID] },
+  { to: '/roles', icon: Shield, label: 'Rollen', roles: [ADMIN_ID] },
 ]
 
 export default function Sidebar() {
-  const { user, logout } = useAuth()
+  const { user, logout, isAdmin, isManager } = useAuth()
 
-  const visible = navItems.filter(item => user && item.roles.includes(user.role))
+  const visible = navItems.filter(item => user && item.roles.includes(user.role_id))
 
   return (
     <aside className="flex flex-col w-64 h-screen sticky top-0 bg-slate-900 text-slate-100 overflow-hidden">
@@ -40,11 +44,11 @@ export default function Sidebar() {
       <div className="px-4 py-3 border-b border-slate-700">
         <span className={cn(
           'text-xs font-medium px-2 py-1 rounded-full',
-          user?.role === 'ADMIN' && 'bg-red-500/20 text-red-300',
-          user?.role === 'DEPARTMENT_MANAGER' && 'bg-amber-500/20 text-amber-300',
-          user?.role === 'EMPLOYEE' && 'bg-emerald-500/20 text-emerald-300',
+          isAdmin && 'bg-red-500/20 text-red-300',
+          !isAdmin && isManager && 'bg-amber-500/20 text-amber-300',
+          !isManager && 'bg-emerald-500/20 text-emerald-300',
         )}>
-          {t(roleLabel, user?.role ?? '')}
+          {isAdmin ? t(roleLabel, 'ADMIN') : isManager ? t(roleLabel, 'DEPARTMENT_MANAGER') : t(roleLabel, 'EMPLOYEE')}
         </span>
       </div>
 

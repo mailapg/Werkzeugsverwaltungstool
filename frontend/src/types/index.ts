@@ -153,6 +153,6 @@ export interface ToolItemHistoryEntry {
 
 export interface AuthUser {
   id: number
-  role: string
+  role_id: number
   department_id: number
 }
