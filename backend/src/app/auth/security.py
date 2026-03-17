@@ -51,15 +51,16 @@ def get_current_user(
     return user
 
 
-def require_role(*roles: str):
+def require_role(*role_ids: int):
     """
-    Returns a FastAPI dependency that enforces role-based access.
+    Returns a FastAPI dependency that enforces role-based access using stable role IDs.
 
     Usage:
-        @router.post("/createuser", dependencies=[Depends(require_role("ADMIN"))])
+        from src.app.core.role_ids import ADMIN_ID, MANAGER_ID
+        @router.post("/createuser", dependencies=[Depends(require_role(ADMIN_ID))])
     """
     def _dependency(current_user: User = Depends(get_current_user)) -> User:
-        if current_user.role.name not in roles:
+        if current_user.role_id not in role_ids:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Insufficient permissions",

@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from src.app.auth.security import get_current_user, require_role
+from src.app.core.role_ids import ADMIN_ID, MANAGER_ID, EMPLOYEE_ID
 from src.app.db.deps import get_db
 from src.app.schemas.loan_request_item import (
     LoanRequestItemRead,
@@ -47,7 +48,7 @@ def update_loan_request_item(
 
 
 @router.delete("/deleteloanrequestitem/{item_id}", status_code=200,
-               dependencies=[Depends(require_role("ADMIN"))])
+               dependencies=[Depends(require_role(ADMIN_ID))])
 def delete_loan_request_item(item_id: int, db: Session = Depends(get_db)):
     item = crud.get_loan_request_item(db, item_id)
     if not item:

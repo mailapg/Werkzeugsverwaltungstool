@@ -41,7 +41,7 @@ def login(
 
     token_data = {
         "sub": str(user.id),
-        "role": user.role.name,
+        "role_id": user.role_id,
         "department_id": user.department_id,
     }
     return TokenResponse(

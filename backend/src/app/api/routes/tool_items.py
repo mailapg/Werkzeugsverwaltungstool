@@ -7,6 +7,7 @@ from fastapi.responses import Response
 from sqlalchemy.orm import Session
 
 from src.app.auth.security import get_current_user, require_role
+from src.app.core.role_ids import ADMIN_ID, MANAGER_ID, EMPLOYEE_ID
 from src.app.db.deps import get_db
 from src.app.schemas.tool_item import ToolItemCreate, ToolItemUpdate, ToolItemRead, ToolItemHistoryEntry
 import src.app.crud.tool_item as crud
@@ -65,13 +66,13 @@ def get_tool_item_qrcode(item_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/createtoolitem", response_model=ToolItemRead, status_code=201,
-             dependencies=[Depends(require_role("ADMIN"))])
+             dependencies=[Depends(require_role(ADMIN_ID))])
 def create_tool_item(data: ToolItemCreate, db: Session = Depends(get_db)):
     return crud.create_tool_item(db, data)
 
 
 @router.patch("/updatetoolitem/{item_id}", response_model=ToolItemRead,
-              dependencies=[Depends(require_role("ADMIN"))])
+              dependencies=[Depends(require_role(ADMIN_ID))])
 def update_tool_item(item_id: int, data: ToolItemUpdate, db: Session = Depends(get_db)):
     item = crud.get_tool_item(db, item_id)
     if not item:
@@ -80,7 +81,7 @@ def update_tool_item(item_id: int, data: ToolItemUpdate, db: Session = Depends(g
 
 
 @router.patch("/retiretoolitm/{item_id}", response_model=ToolItemRead,
-              dependencies=[Depends(require_role("ADMIN"))])
+              dependencies=[Depends(require_role(ADMIN_ID))])
 def retire_tool_item(item_id: int, db: Session = Depends(get_db)):
     """Sets tool item status to RETIRED. Fails if an active loan exists."""
     item = crud.get_tool_item(db, item_id)
@@ -93,7 +94,7 @@ def retire_tool_item(item_id: int, db: Session = Depends(get_db)):
 
 
 @router.delete("/deletetoolitem/{item_id}", status_code=200,
-               dependencies=[Depends(require_role("ADMIN"))])
+               dependencies=[Depends(require_role(ADMIN_ID))])
 def delete_tool_item(item_id: int, db: Session = Depends(get_db)):
     item = crud.get_tool_item(db, item_id)
     if not item:

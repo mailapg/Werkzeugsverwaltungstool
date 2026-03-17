@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from src.app.auth.security import get_current_user, require_role
+from src.app.core.role_ids import ADMIN_ID, MANAGER_ID, EMPLOYEE_ID
 from src.app.db.deps import get_db
 from src.app.models.user import User
 from src.app.schemas.loan_request import LoanRequestCreate, LoanRequestUpdate, LoanRequestRead, DecideRequest
@@ -16,9 +17,9 @@ def list_loan_requests(
     current_user: User = Depends(get_current_user),
 ):
     """ADMIN sees all; DEPARTMENT_MANAGER sees their department; EMPLOYEE sees only their own."""
-    if current_user.role.name == "EMPLOYEE":
+    if current_user.role_id == EMPLOYEE_ID:
         return crud.get_loan_requests_by_user(db, current_user.id)
-    if current_user.role.name == "DEPARTMENT_MANAGER":
+    if current_user.role_id == MANAGER_ID:
         return crud.get_loan_requests_by_department(db, current_user.department_id)
     return crud.get_loan_requests(db)
 
@@ -52,7 +53,7 @@ def update_loan_request(request_id: int, data: LoanRequestUpdate, db: Session = 
 
 
 @router.patch("/decideloanrequest/{request_id}", response_model=LoanRequestRead,
-              dependencies=[Depends(require_role("ADMIN", "DEPARTMENT_MANAGER"))])
+              dependencies=[Depends(require_role(ADMIN_ID, MANAGER_ID))])
 def decide_loan_request(request_id: int, data: DecideRequest, db: Session = Depends(get_db)):
     """ADMIN or DEPARTMENT_MANAGER may approve or reject a loan request.
     On approval a Loan is automatically created."""
@@ -72,7 +73,7 @@ def decide_loan_request(request_id: int, data: DecideRequest, db: Session = Depe
 
 
 @router.delete("/deleteloanrequest/{request_id}", status_code=200,
-               dependencies=[Depends(require_role("ADMIN"))])
+               dependencies=[Depends(require_role(ADMIN_ID))])
 def delete_loan_request(request_id: int, db: Session = Depends(get_db)):
     request = crud.get_loan_request(db, request_id)
     if not request:

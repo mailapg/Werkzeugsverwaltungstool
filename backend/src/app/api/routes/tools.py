@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 
 from src.app.auth.security import get_current_user, require_role
+from src.app.core.role_ids import ADMIN_ID, MANAGER_ID, EMPLOYEE_ID
 from src.app.db.deps import get_db
 from src.app.schemas.tool import ToolCreate, ToolUpdate, ToolRead
 from src.app.models.tool import Tool
@@ -52,7 +53,7 @@ def get_tool(tool_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/createtool", response_model=ToolRead, status_code=201,
-             dependencies=[Depends(require_role("ADMIN"))])
+             dependencies=[Depends(require_role(ADMIN_ID))])
 def create_tool(
     tool_name: str = Form(...),
     category_id: int = Form(...),
@@ -69,7 +70,7 @@ def create_tool(
 
 
 @router.patch("/updatetool/{tool_id}", response_model=ToolRead,
-              dependencies=[Depends(require_role("ADMIN"))])
+              dependencies=[Depends(require_role(ADMIN_ID))])
 def update_tool(
     tool_id: int,
     tool_name: Optional[str] = Form(None),
@@ -96,7 +97,7 @@ def update_tool(
 
 
 @router.delete("/deletetool/{tool_id}", status_code=200,
-               dependencies=[Depends(require_role("ADMIN"))])
+               dependencies=[Depends(require_role(ADMIN_ID))])
 def delete_tool(tool_id: int, db: Session = Depends(get_db)):
     tool = crud.get_tool(db, tool_id)
     if not tool:
@@ -107,7 +108,7 @@ def delete_tool(tool_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/uploadtoolimage/{tool_id}", response_model=ToolRead,
-             dependencies=[Depends(require_role("ADMIN"))])
+             dependencies=[Depends(require_role(ADMIN_ID))])
 def upload_tool_image(tool_id: int, file: UploadFile = File(...), db: Session = Depends(get_db)):
     tool = crud.get_tool(db, tool_id)
     if not tool:
@@ -118,7 +119,7 @@ def upload_tool_image(tool_id: int, file: UploadFile = File(...), db: Session = 
 
 
 @router.delete("/deletetoolimage/{tool_id}", status_code=200,
-               dependencies=[Depends(require_role("ADMIN"))])
+               dependencies=[Depends(require_role(ADMIN_ID))])
 def delete_tool_image(tool_id: int, db: Session = Depends(get_db)):
     tool = crud.get_tool(db, tool_id)
     if not tool:
