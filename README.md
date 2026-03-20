@@ -167,6 +167,61 @@ pytest
 
 ---
 
+## Frontend-Tests ausführen (Playwright E2E)
+
+> Die Frontend-Tests mocken alle API-Aufrufe — das Backend muss **nicht** laufen.
+> Playwright startet den Vite-Dev-Server automatisch.
+
+### Voraussetzung: Playwright-Browser installieren
+
+Einmalig ausführen (nur beim ersten Mal oder nach Updates):
+
+```bash
+cd frontend
+npx playwright install --with-deps chromium
+```
+
+### Tests ausführen
+
+```bash
+cd frontend
+
+# Alle Tests im Terminal ausführen
+npm run test:e2e
+
+# Tests mit grafischer Playwright-UI (empfohlen zum Debuggen)
+npm run test:e2e:ui
+
+# HTML-Bericht im Browser öffnen (nach einem vorherigen Testlauf)
+npm run test:e2e:report
+```
+
+### Testabdeckung
+
+| Datei | Getestete Seite |
+|---|---|
+| `auth.spec.ts` | Login / Logout |
+| `dashboard.spec.ts` | Dashboard |
+| `tools.spec.ts` | Werkzeuge |
+| `inventory.spec.ts` | Inventar |
+| `loan-requests.spec.ts` | Ausleiheanfragen |
+| `loans.spec.ts` | Ausleihen |
+| `issues.spec.ts` | Mängelmanagement |
+| `users.spec.ts` | Benutzerverwaltung |
+| `departments.spec.ts` | Abteilungsverwaltung |
+
+### Berichte & Artefakte
+
+Nach einem Testlauf liegen Ergebnisse in:
+
+```
+frontend/
+├── playwright-report/   # HTML-Bericht (npm run test:e2e:report)
+└── test-results/        # Screenshots bei Fehlern, Traces
+```
+
+---
+
 ## Produktions-Build (Frontend)
 
 ```bash
@@ -174,6 +229,103 @@ cd frontend
 npm run build
 # Output: frontend/dist/
 ```
+
+---
+
+## Wartung
+
+### Abhängigkeiten aktualisieren
+
+**Backend:**
+```bash
+cd backend
+source .venv/bin/activate
+pip install -r src/requirements.txt --upgrade
+```
+
+**Frontend:**
+```bash
+cd frontend
+npm update
+```
+
+---
+
+### Datenbank-Backup
+
+Die gesamte Datenbank liegt in einer einzigen Datei:
+
+```
+backend/src/app/db/app.db
+```
+
+Für ein Backup reicht es, diese Datei zu kopieren:
+
+```bash
+cp backend/src/app/db/app.db backend/src/app/db/app.db.backup
+```
+
+---
+
+### Datenbank zurücksetzen (nur Entwicklung)
+
+Löscht alle Daten und spielt die Seed-Daten neu ein:
+
+```bash
+cd backend
+source .venv/bin/activate
+
+# Datenbank löschen
+rm -f src/app/db/app.db
+
+# Schema neu erstellen
+alembic upgrade head
+
+# Seed-Daten einspielen (Rollen, Statuswerte, Demo-Admin)
+python -m src.app.seed.seed_initial
+```
+
+---
+
+### Datenbankmigrationen (Schema-Änderungen)
+
+Wenn Datenbankmodelle geändert wurden, muss eine neue Migration erstellt werden:
+
+```bash
+cd backend
+source .venv/bin/activate
+
+# Migration automatisch generieren
+alembic revision --autogenerate -m "kurze Beschreibung der Änderung"
+
+# Migration anwenden
+alembic upgrade head
+```
+
+---
+
+### Werkzeugbilder verwalten
+
+Hochgeladene Bilder werden gespeichert unter:
+
+```
+backend/static/tool_images/
+```
+
+Nicht mehr benötigte Bilder (z. B. nach gelöschten Werkzeugen) können dort manuell gelöscht werden.
+
+---
+
+### Secret Key erneuern
+
+Der `SECRET_KEY` in `backend/.env` wird zum Signieren von JWT-Tokens verwendet. Bei einem Verdacht auf Kompromittierung oder regelmäßig als Sicherheitsmaßnahme erneuern:
+
+```bash
+# Neuen zufälligen Key generieren
+python3 -c "import secrets; print(secrets.token_hex(32))"
+```
+
+Den generierten Wert in `backend/.env` bei `SECRET_KEY=` eintragen. Danach müssen sich alle Benutzer neu anmelden, da bestehende Tokens ungültig werden.
 
 ---
 
