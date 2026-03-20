@@ -1,0 +1,132 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4">
+  <diagram id="werkzeugeinheit" name="Werkzeugeinheit">
+    <mxGraphModel dx="1616" dy="1192" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1000" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="Zustandsdiagramm:&amp;nbsp;&lt;span class=&quot;Yjhzub&quot; data-sfc-root=&quot;c&quot; data-sfc-cb=&quot;&quot; data-processed=&quot;true&quot; style=&quot;font-weight: bolder; caret-color: rgb(10, 10, 10); color: rgb(10, 10, 10); font-family: &amp;quot;Google Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif; text-align: left;&quot;&gt;Werkzeug-Exemplarstatus&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="500" x="177" y="-32" as="geometry" />
+        </mxCell>
+        <mxCell id="init" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="385" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s_avail" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" value="Verfügbar" vertex="1">
+          <mxGeometry height="60" width="200" x="300" y="167" as="geometry" />
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-1" edge="1" parent="1" source="s_loaned" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;curved=0;" target="s_maint">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-54" y="38" />
+              <mxPoint x="926" y="38" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-4" connectable="0" parent="EbxekDTooUurPeFqK70Z-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="[Issue gemeldet]" vertex="1">
+          <mxGeometry relative="1" x="0.1636" as="geometry">
+            <mxPoint x="-11" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s_loaned" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="Ausgeliehen" vertex="1">
+          <mxGeometry height="60" width="180" x="-101" y="341" as="geometry" />
+        </mxCell>
+        <mxCell id="s_defect" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" value="Defekt" vertex="1">
+          <mxGeometry height="60" width="180" x="360" y="569" as="geometry" />
+        </mxCell>
+        <mxCell id="s_maint" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Wartung" vertex="1">
+          <mxGeometry height="60" width="180" x="836" y="161" as="geometry" />
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-12" edge="1" parent="1" source="s_retired" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;curved=0;" target="s_defect">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="926" y="664" />
+              <mxPoint x="405" y="664" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-15" connectable="0" parent="EbxekDTooUurPeFqK70Z-12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="PATCH /updatetoolitem [Admin]" vertex="1">
+          <mxGeometry relative="1" x="0.0738" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-13" edge="1" parent="1" source="s_retired" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;curved=0;" target="s_maint">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1086" y="458" />
+              <mxPoint x="1086" y="191" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-14" connectable="0" parent="EbxekDTooUurPeFqK70Z-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="PATCH /updatetoolitem [Admin]" vertex="1">
+          <mxGeometry relative="1" x="0.1906" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s_retired" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;" value="Ausgesondert" vertex="1">
+          <mxGeometry height="60" width="180" x="836" y="428" as="geometry" />
+        </mxCell>
+        <mxCell id="t0" edge="1" parent="1" source="init" style="html=1;endArrow=block;endFill=1;fontSize=11;" target="s_avail" value="POST /createtoolitem [Admin]">
+          <mxGeometry relative="1" x="0.013" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t1" edge="1" parent="1" source="s_avail" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="s_loaned" value="/ bei Loan-Erstellung [status = LOANED]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" edge="1" parent="1" source="s_loaned" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="s_avail" value="PATCH /returnloan [Zustand OK/WORN]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" edge="1" parent="1" source="s_loaned" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="s_defect" value="PATCH /returnloan [Zustand DEFECT]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" edge="1" parent="1" source="s_avail" style="html=1;endArrow=block;endFill=1;fontSize=11;edgeStyle=orthogonalEdgeStyle;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="s_defect" value="PATCH /updatetoolitem [Admin]">
+          <mxGeometry relative="1" x="0.5822" y="64" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t5" edge="1" parent="1" source="s_defect" style="html=1;endArrow=block;endFill=1;fontSize=11;edgeStyle=orthogonalEdgeStyle;exitX=0.217;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" target="s_avail" value="PATCH /updatetoolitem [Repariert]">
+          <mxGeometry relative="1" x="-0.195" y="45" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="709" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6" edge="1" parent="1" source="s_avail" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0.75;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="s_maint" value="PATCH /updatetoolitem [Admin]">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="92" />
+              <mxPoint x="881" y="92" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t7" edge="1" parent="1" source="s_maint" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="s_avail" value="PATCH /updatetoolitem [Wartung fertig]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" edge="1" parent="1" source="s_avail" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0.885;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;exitPerimeter=0;" target="s_retired" value="PATCH /retiretoolitm [Admin]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" edge="1" parent="1" source="s_defect" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="s_retired" value="PATCH /retiretoolitm [Admin]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" edge="1" parent="1" source="s_maint" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="s_retired" value="PATCH /retiretoolitm [Admin]">
+          <mxGeometry relative="1" x="-0.314" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-5" edge="1" parent="1" source="s_avail" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;curved=0;" target="s_loaned">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-36" y="182" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-11" connectable="0" parent="EbxekDTooUurPeFqK70Z-5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="PATCH /updatetoolitem [Admin]" vertex="1">
+          <mxGeometry relative="1" x="-0.1695" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EbxekDTooUurPeFqK70Z-16" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;fillColor=#ffffcc;strokeColor=#999900;align=left;spacingLeft=8;" value="&lt;p class=&quot;p1&quot; style=&quot;margin: 0px; font-width: normal; line-height: normal; font-size-adjust: none; font-kerning: auto; font-variant-alternates: normal; font-variant-ligatures: normal; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-position: normal; font-feature-settings: normal; font-optical-sizing: auto; font-variation-settings: normal;&quot;&gt;&lt;font&gt;Der Administrator kann jeden Zustand in einen anderen überführen. Aus Gründen der Übersichtlichkeit sind die möglichen Transitionen hier nur teilweise dargestellt.&lt;/font&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="76" width="319" x="648" y="-58" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
