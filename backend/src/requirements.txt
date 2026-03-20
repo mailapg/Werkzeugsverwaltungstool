@@ -8,5 +8,6 @@ passlib==1.7.4                      # Passwort-Hashing
 bcrypt==3.2.2                       # Hashing-Algorithmus für passlib
 httpx==0.28.1                       # HTTP-Client für Tests
 python-jose[cryptography]==3.5.0    # JWT-Token
+python-multipart==0.0.20            # Datei-Uploads (UploadFile, File, Form)
 qrcode[pil]==8.2                    # QR-Code Generierung
 pytest==8.4.2                       # Test-Framework
