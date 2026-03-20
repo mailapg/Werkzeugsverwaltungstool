@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4">
   <diagram id="4IzttD118oDDTkLzMC2O" name="Seite-1">
-    <mxGraphModel dx="7089" dy="4602" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
+    <mxGraphModel dx="5068" dy="3395" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -202,15 +202,15 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ToolItemIssue" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="«ORM Model»&#xa;ToolItemIssue" vertex="1">
-          <mxGeometry height="300" width="290" x="1180" y="26" as="geometry" />
+          <mxGeometry height="300" width="320" x="1165" y="26" as="geometry" />
         </mxCell>
         <mxCell id="TII_f" parent="ToolItemIssue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- tool_item_id: int&#xa;- reported_by_user_id: int&#xa;- status_id: int&#xa;- title: str &#xa;- description: str&#xa;- related_loan_id: int&#xa;- reported_at: datetime&#xa;- resolved_at: datetime" vertex="1">
           <mxGeometry height="120" width="290" y="40" as="geometry" />
         </mxCell>
         <mxCell id="TII_div" parent="ToolItemIssue" style="line;strokeColor=#82b366;fillColor=none;" value="" vertex="1">
-          <mxGeometry height="10" width="290" y="175" as="geometry" />
+          <mxGeometry height="10" width="320" y="175" as="geometry" />
         </mxCell>
-        <mxCell id="TII_m" parent="ToolItemIssue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool_item_issue(id) → ToolItemIssue&#xa;+ get_tool_item_issues() → List&#xa;+ get_issues_by_tool_item(item_id) → List&#xa;+ create_tool_item_issue(data) → ToolItemIssue&#xa;+ update_tool_item_issue(issue, data)&#xa;+ resolve_tool_item_issue(issue) → ToolItemIssue&#xa;+ delete_tool_item_issue(ToolItemIssue) → None" vertex="1">
+        <mxCell id="TII_m" parent="ToolItemIssue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool_item_issue(id) → ToolItemIssue&#xa;+ get_tool_item_issues() → List&#xa;+ get_issues_by_tool_item(item_id) → List&#xa;+ create_tool_item_issue(data) → ToolItemIssue&#xa;+ update_tool_item_issue(issue, data) → ToolItemIssue&#xa;+ resolve_tool_item_issue(issue) → ToolItemIssue&#xa;+ delete_tool_item_issue(ToolItemIssue) → None" vertex="1">
           <mxGeometry height="115" width="380" y="185" as="geometry" />
         </mxCell>
         <mxCell id="iiseRdFrTUzg36aN5E24-24" edge="1" parent="1" source="Loan" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=open;endFill=0;endSize=20;" target="LoanRequest">
