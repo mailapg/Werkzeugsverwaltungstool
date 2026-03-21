@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import { Skeleton } from '../components/ui/skeleton'
 import { toast } from 'sonner'
-import { Plus, Trash2, ClipboardList, CheckCircle, XCircle, X, AlertTriangle, Search, ScanLine } from 'lucide-react'
+import { Plus, Trash2, ClipboardList, CheckCircle, XCircle, X, AlertTriangle, Search, ScanLine, Ban } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { cn } from '../lib/utils'
 import { loanRequestStatusLabel as statusLabel, t } from '../lib/labels'
@@ -188,6 +188,18 @@ export default function LoanRequestsPage() {
     catch { toast.error('Fehler') }
   }
 
+  const handleCancel = async (req: LoanRequest) => {
+    if (!confirm('Anfrage wirklich stornieren?')) return
+    const cancelledStatus = statuses.find(s => s.name === 'CANCELLED')
+    if (!cancelledStatus) { toast.error('Status nicht gefunden'); return }
+    try {
+      await loanRequestsApi.update(req.id, { request_status_id: cancelledStatus.id })
+      toast.success('Anfrage storniert')
+      setDetailOpen(false)
+      load()
+    } catch { toast.error('Fehler beim Stornieren') }
+  }
+
   const now = new Date()
   const isOverdue = (req: LoanRequest) =>
     !!req.due_at && (req.status.name === 'APPROVED' || req.status.name === 'REQUESTED') && new Date(req.due_at) < now
@@ -304,6 +316,11 @@ export default function LoanRequestsPage() {
                           <CheckCircle size={14} className="mr-1" />Entscheiden
                         </Button>
                       )}
+                      {req.requester_user_id === user?.id && req.status.name === 'REQUESTED' && (
+                        <Button size="sm" variant="ghost" className="text-amber-600 hover:bg-amber-50" onClick={() => handleCancel(req)}>
+                          <Ban size={14} className="mr-1" />Stornieren
+                        </Button>
+                      )}
                       {isAdmin && (
                         <Button size="sm" variant="ghost" className="text-red-500 hover:bg-red-50" onClick={() => handleDelete(req)}>
                           <Trash2 size={14} />
@@ -403,6 +420,11 @@ export default function LoanRequestsPage() {
           )}
           <DialogFooter>
             <Button variant="outline" onClick={() => setDetailOpen(false)}>Schließen</Button>
+            {detailRequest?.requester_user_id === user?.id && detailRequest?.status.name === 'REQUESTED' && (
+              <Button variant="outline" className="text-amber-600 border-amber-300 hover:bg-amber-50" onClick={() => handleCancel(detailRequest!)}>
+                <Ban size={14} className="mr-2" />Stornieren
+              </Button>
+            )}
             {isManager && detailRequest?.status.name === 'REQUESTED' && (
               <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => { setDetailOpen(false); openDecide(detailRequest!) }}>
                 <CheckCircle size={14} className="mr-2" />Entscheiden

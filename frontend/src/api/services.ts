@@ -1,9 +1,25 @@
+// ============================================================
+// api/services.ts – Alle API-Funktionen der Anwendung
+//
+// Hier sind alle HTTP-Aufrufe an das Backend organisiert.
+// Jede Entität hat ein eigenes Objekt mit CRUD-Methoden:
+//   .list()   → GET alle Einträge
+//   .get(id)  → GET einzelnen Eintrag
+//   .create() → POST neuen Eintrag
+//   .update() → PATCH Eintrag
+//   .delete() → DELETE Eintrag
+//
+// Durch die zentrale Organisation muss man URLs nur einmal pflegen.
+// ============================================================
+
 import api from './client'
 import type { User, Department, Role, Tool, ToolItem, ToolItemHistoryEntry, ToolItemIssue, LoanRequest, Loan, ToolCategory, ToolStatus, ToolCondition, ToolItemIssueStatus, LoanRequestStatus } from '../types'
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 export const authApi = {
   login: async (email: string, password: string) => {
+    // OAuth2PasswordRequestForm erwartet URL-encoded Daten, kein JSON
+    // Das Backend nutzt 'username' als Feldname (OAuth2-Standard), obwohl wir E-Mail verwenden
     const form = new URLSearchParams()
     form.append('username', email)
     form.append('password', password)
@@ -70,10 +86,12 @@ export const toolItemsApi = {
   get: (id: number) => api.get<ToolItem>(`/api/v1/gettoolitem/${id}`).then(r => r.data),
   create: (data: object) => api.post<ToolItem>('/api/v1/createtoolitem', data).then(r => r.data),
   update: (id: number, data: object) => api.patch<ToolItem>(`/api/v1/updatetoolitem/${id}`, data).then(r => r.data),
-  retire: (id: number) => api.patch<ToolItem>(`/api/v1/retiretoolitm/${id}`).then(r => r.data),
+  retire: (id: number) => api.patch<ToolItem>(`/api/v1/retiretoolitm/${id}`).then(r => r.data),  // setzt Status auf RETIRED
   delete: (id: number) => api.delete(`/api/v1/deletetoolitem/${id}`).then(r => r.data),
-  history: (id: number) => api.get<ToolItemHistoryEntry[]>(`/api/v1/gettoolitemhistory/${id}`).then(r => r.data),
+  history: (id: number) => api.get<ToolItemHistoryEntry[]>(`/api/v1/gettoolitemhistory/${id}`).then(r => r.data),  // alle vergangenen Ausleihen
+  // qrCode gibt direkt eine URL zurück (für <img src=...>)
   qrCode: (id: number) => `http://localhost:8000/api/v1/gettoolitemqrcode/${id}`,
+  // qrCodeBlob lädt das Bild und erstellt eine lokale Blob-URL (für Downloads)
   qrCodeBlob: (id: number) => api.get(`/api/v1/gettoolitemqrcode/${id}`, { responseType: 'blob' }).then(r => URL.createObjectURL(r.data)),
 }
 

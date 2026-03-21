@@ -1,6 +1,16 @@
+// ============================================================
+// types/index.ts – TypeScript-Typdefinitionen für alle Datenstrukturen
+//
+// Diese Interfaces spiegeln die Pydantic-Schemas des Backends wider.
+// TypeScript prüft zur Kompilierzeit, ob wir die Daten korrekt verwenden.
+// Wenn sich das Backend ändert, müssen diese Typen angepasst werden.
+// ============================================================
+
+// ── Rollen & Benutzer ──────────────────────────────────────────────────────────
+
 export interface Role {
   id: number
-  name: string
+  name: string  // "ADMIN" | "DEPARTMENT_MANAGER" | "EMPLOYEE"
 }
 
 export interface Department {
@@ -29,6 +39,8 @@ export interface User {
   created_at: string
   updated_at: string
 }
+
+// ── Werkzeuge & Inventar ───────────────────────────────────────────────────────
 
 export interface ToolCategory {
   id: number
@@ -66,9 +78,11 @@ export interface ToolItem {
   condition: ToolCondition
 }
 
+// ── Schadensberichte ───────────────────────────────────────────────────────────
+
 export interface ToolItemIssueStatus {
   id: number
-  name: string
+  name: string  // "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED"
 }
 
 export interface ToolItemIssue {
@@ -85,9 +99,11 @@ export interface ToolItemIssue {
   resolved_at: string | null
 }
 
+// ── Ausleiheanträge & Ausleihen ────────────────────────────────────────────────
+
 export interface LoanRequestStatus {
   id: number
-  name: string
+  name: string  // "REQUESTED" | "APPROVED" | "REJECTED" | "CANCELLED"
 }
 
 export interface LoanRequestItem {
@@ -129,16 +145,16 @@ export interface Loan {
   id: number
   issued_at: string
   due_at: string
-  returned_at: string | null
+  returned_at: string | null  // null = noch aktiv
   borrower_user_id: number
   borrower: UserSlim
   issued_by_user_id: number
   issuer: UserSlim
   returned_by_user_id: number | null
-  return_processor: UserSlim | null
+  return_processor: UserSlim | null  // null = noch nicht zurückgegeben
   comment: string | null
   items: LoanItem[]
-  is_overdue: boolean
+  is_overdue: boolean  // berechnet vom Backend: returned_at === null UND due_at < jetzt
 }
 
 export interface ToolItemHistoryEntry {
@@ -151,6 +167,10 @@ export interface ToolItemHistoryEntry {
   return_comment: string | null
 }
 
+// ── Auth ───────────────────────────────────────────────────────────────────────
+
+// AuthUser: Minimale Benutzerinfos, die aus dem JWT-Token gelesen werden.
+// Wird im AuthContext gespeichert – kein extra API-Aufruf nötig.
 export interface AuthUser {
   id: number
   role_id: number
