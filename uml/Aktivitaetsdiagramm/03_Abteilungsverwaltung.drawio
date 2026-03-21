@@ -1,0 +1,348 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4" pages="3">
+  <diagram id="dept_create" name="Abteilung anlegen">
+    <mxGraphModel dx="1216" dy="792" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="Admin" vertex="1">
+          <mxGeometry height="760" width="220" x="10" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="I1" parent="L1" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="98" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Formular zum Anlegen einer Abteilung öffnen" vertex="1">
+          <mxGeometry height="50" width="160" x="30" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Abteilungsname und optionalen Leiter eingeben" vertex="1">
+          <mxGeometry height="50" width="160" x="30" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="A6" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Abteilungsliste aktualisieren" vertex="1">
+          <mxGeometry height="50" width="160" x="30" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="AF1" parent="L1" style="shape=doubleEllipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="32" width="32" x="94" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="Backend" vertex="1">
+          <mxGeometry height="760" width="300" x="230" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Abteilung in der Datenbank anlegen" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="D1" parent="L2" style="rhombus;whiteSpace=wrap;html=1;" value="Abteilungsleiter&#xa;angegeben?" vertex="1">
+          <mxGeometry height="70" width="110" x="95" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Benutzer als Abteilungsleiter eintragen und Rolle anpassen" vertex="1">
+          <mxGeometry height="60" width="160" x="70" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="M1" parent="L2" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="40" width="50" x="125" y="534.5" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Erfolgsmeldung zurückgeben" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="E_I1_A1" edge="1" parent="1" source="I1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A1_A2" edge="1" parent="1" source="A1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A2_A3" edge="1" parent="1" source="A2" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A3_D1" edge="1" parent="1" source="A3" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="D1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_A4" edge="1" parent="1" source="D1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A4" value="[Ja]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A4_M1" edge="1" parent="1" source="A4" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="M1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_M1" edge="1" parent="1" source="D1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="M1" value="[Nein]">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="395" />
+              <mxPoint x="500" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="E_M1_A5" edge="1" parent="1" source="M1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A5_A6" edge="1" parent="1" source="A5" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A6_AF1" edge="1" parent="1" source="A6" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="AF1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dept_update" name="Abteilung aktualisieren">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- LANES -->
+        <mxCell id="L1" value="Admin" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="10" width="220" height="970" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" value="Backend" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="10" width="320" height="970" as="geometry" />
+        </mxCell>
+        <mxCell id="I1" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L1">
+          <mxGeometry x="98" y="50" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" value="Abteilung aus der Liste auswählen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="30" y="100" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" value="Änderungen eingeben und absenden" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="30" y="180" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Decision: Abteilung vorhanden? -->
+        <mxCell id="D1" value="Abteilung&#xa;vorhanden?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="95" y="260" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR1" value="Fehlermeldung zurückgeben" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="L2">
+          <mxGeometry x="220" y="265" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="L2">
+          <mxGeometry x="248" y="340" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1x" value="✖" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="L2">
+          <mxGeometry x="248" y="340" width="24" height="24" as="geometry" />
+        </mxCell>
+        <!-- Decision: Wird die Leitung geändert? -->
+        <mxCell id="D2" value="Wird die&#xa;Leitung geändert?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="95" y="360" width="110" height="70" as="geometry" />
+        </mxCell>
+        <!-- Nein branch: just update name -->
+        <mxCell id="A_name" value="Abteilungsname aktualisieren" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="220" y="365" width="90" height="60" as="geometry" />
+        </mxCell>
+        <!-- Decision: Neue Leitung ist leer? -->
+        <mxCell id="D3" value="Neue Leitung&#xa;ist leer?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="95" y="460" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" value="Bisherigen Leiter ablösen und Nachfolger bestimmen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="70" y="560" width="160" height="60" as="geometry" />
+        </mxCell>
+        <!-- Decision: Neuer Leiter ist bereits anderswo Leiter? -->
+        <mxCell id="D4" value="Neuer Leiter&#xa;bereits anderswo&#xa;Leiter?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="95" y="560" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR2" value="Fehler: Leiter bereits vergeben" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="L2">
+          <mxGeometry x="220" y="575" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FF2" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="L2">
+          <mxGeometry x="248" y="650" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="FF2x" value="✖" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="L2">
+          <mxGeometry x="248" y="650" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" value="Bisherigen Leiter ablösen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="80" y="670" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" value="Neuen Leiter eintragen und Rolle anpassen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="80" y="750" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Merge before save -->
+        <mxCell id="M1" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="L2">
+          <mxGeometry x="125" y="820" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A6" value="Abteilungsdaten in der Datenbank speichern" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="80" y="880" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A7" value="Abteilungsliste aktualisieren" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="30" y="880" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="AF1" value="" style="shape=doubleEllipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L1">
+          <mxGeometry x="94" y="942" width="32" height="32" as="geometry" />
+        </mxCell>
+        <!-- EDGES -->
+        <mxCell id="E_I1_A1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="I1" target="A1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A1_A2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A1" target="A2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A2_D1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A2" target="D1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_ERR1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D1" target="ERR1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR1_FF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="ERR1" target="FF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_D2" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D1" target="D2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_Aname" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D2" target="A_name" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_Aname_M1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="A_name" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_D3" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D2" target="D3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_A3" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D3" target="A3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A3_M1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="A3" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_D4" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D3" target="D4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D4_ERR2" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D4" target="ERR2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR2_FF2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="ERR2" target="FF2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D4_A4" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D4" target="A4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A4_A5" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A4" target="A5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A5_M1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A5" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_M1_A6" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="M1" target="A6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A6_A7" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A6" target="A7" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A7_AF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A7" target="AF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dept_delete" name="Abteilung löschen">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- LANES -->
+        <mxCell id="L1" value="Admin" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="10" width="220" height="860" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" value="Backend" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="10" width="300" height="860" as="geometry" />
+        </mxCell>
+        <mxCell id="I1" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L1">
+          <mxGeometry x="98" y="50" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" value="Abteilung aus der Liste auswählen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="30" y="100" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" value="Löschen bestätigen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="30" y="180" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Decision: Abteilung vorhanden? -->
+        <mxCell id="D1" value="Abteilung&#xa;vorhanden?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="80" y="260" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR1" value="Fehlermeldung zurückgeben" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="L2">
+          <mxGeometry x="205" y="265" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="L2">
+          <mxGeometry x="238" y="340" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1x" value="✖" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="L2">
+          <mxGeometry x="238" y="340" width="24" height="24" as="geometry" />
+        </mxCell>
+        <!-- Decision: Gibt es Mitglieder? -->
+        <mxCell id="D2" value="Gibt es Mitglieder&#xa;in dieser Abteilung?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="80" y="360" width="110" height="70" as="geometry" />
+        </mxCell>
+        <!-- Decision: Gibt es andere Abteilungen? -->
+        <mxCell id="D3" value="Gibt es andere&#xa;Abteilungen?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="80" y="460" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR2" value="Fehler: Mitglieder können nicht umgezogen werden" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="L2">
+          <mxGeometry x="205" y="465" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FF2" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="L2">
+          <mxGeometry x="238" y="540" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="FF2x" value="✖" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="L2">
+          <mxGeometry x="238" y="540" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" value="Alle Mitglieder zufällig in andere Abteilungen verschieben" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="70" y="560" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" value="Abteilungsleiter ablösen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="70" y="640" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Merge -->
+        <mxCell id="M1" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="L2">
+          <mxGeometry x="110" y="708" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" value="Abteilung aus der Datenbank löschen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="70" y="768" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A6" value="Abteilungsliste aktualisieren" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="30" y="768" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="AF1" value="" style="shape=doubleEllipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L1">
+          <mxGeometry x="94" y="830" width="32" height="32" as="geometry" />
+        </mxCell>
+        <!-- EDGES -->
+        <mxCell id="E_I1_A1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="I1" target="A1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A1_A2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A1" target="A2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A2_D1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A2" target="D1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_ERR1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D1" target="ERR1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR1_FF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="ERR1" target="FF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_D2" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D1" target="D2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_D3" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D2" target="D3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_M1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D2" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_ERR2" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D3" target="ERR2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR2_FF2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="ERR2" target="FF2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_A3" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D3" target="A3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A3_A4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A3" target="A4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A4_M1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A4" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_M1_A5" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="M1" target="A5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A5_A6" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A5" target="A6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A6_AF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A6" target="AF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

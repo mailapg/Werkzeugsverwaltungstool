@@ -1,0 +1,291 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4" pages="3">
+  <diagram id="issue_create" name="Schadensmeldung erstellen">
+    <mxGraphModel dx="1216" dy="792" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Nutzer" vertex="1">
+          <mxGeometry height="780" width="210" x="10" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="I1" parent="L1" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="93" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Defektes Exemplar auswählen" vertex="1">
+          <mxGeometry height="50" width="160" x="25" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Titel, Beschreibung und ggf. zugehörige Ausleihe angeben" vertex="1">
+          <mxGeometry height="60" width="160" x="25" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="A7" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Schadensmeldungsliste aktualisieren" vertex="1">
+          <mxGeometry height="50" width="160" x="25" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="AF1" parent="L1" style="shape=doubleEllipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="32" width="32" x="89" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="Backend" vertex="1">
+          <mxGeometry height="780" width="300" x="220" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Schadensmeldung anlegen" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Exemplar als „In Wartung“ markieren" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Zustand des Exemplars auf „Verschlissen“ setzen" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="A6" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Erfolgsmeldung zurückgeben" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="E_I1_A1" edge="1" parent="1" source="I1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A1_A2" edge="1" parent="1" source="A1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A2_A3" edge="1" parent="1" source="A2" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A3_A4" edge="1" parent="1" source="A3" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A4_A5" edge="1" parent="1" source="A4" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A5_A6" edge="1" parent="1" source="A5" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A6_A7" edge="1" parent="1" source="A6" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A7_AF1" edge="1" parent="1" source="A7" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="AF1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="issue_update" name="Schadensmeldung aktualisieren">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- LANES -->
+        <mxCell id="L1" value="Admin/Manager" style="swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="10" width="230" height="920" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" value="Backend" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="10" width="310" height="920" as="geometry" />
+        </mxCell>
+        <mxCell id="I1" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L1">
+          <mxGeometry x="103" y="50" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" value="Schadensmeldung auswählen und bearbeiten" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="35" y="100" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Decision: Schadensmeldung vorhanden? -->
+        <mxCell id="D1" value="Schadensmeldung&#xa;vorhanden?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="85" y="180" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR1" value="Fehlermeldung zurückgeben" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="L2">
+          <mxGeometry x="210" y="185" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="L2">
+          <mxGeometry x="248" y="260" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1x" value="✖" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="L2">
+          <mxGeometry x="248" y="260" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" value="Änderungen speichern" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="75" y="280" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Decision: Status geändert? -->
+        <mxCell id="D2" value="Status&#xa;geändert?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="85" y="360" width="110" height="70" as="geometry" />
+        </mxCell>
+        <!-- Decision: Neuer Status ist "Behoben" oder "Geschlossen"? -->
+        <mxCell id="D3" value="Status „Behoben“&#xa;oder „Geschlossen“?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="85" y="460" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" value="Exemplar als „In Wartung“ markieren" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="215" y="460" width="80" height="60" as="geometry" />
+        </mxCell>
+        <!-- Decision: Keine weiteren offenen Meldungen und kein aktives Ausleih? -->
+        <mxCell id="D4" value="Keine weiteren&#xa;offenen Meldungen&#xa;und kein aktives&#xa;Ausleih?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="85" y="570" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" value="Exemplar als „Verfügbar“ und Zustand als „In Ordnung“ setzen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="75" y="690" width="160" height="60" as="geometry" />
+        </mxCell>
+        <!-- Merge -->
+        <mxCell id="M1" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="L2">
+          <mxGeometry x="125" y="770" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" value="Erfolgsmeldung zurückgeben" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="75" y="830" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A6" value="Schadensmeldungsliste aktualisieren" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="35" y="830" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="AF1" value="" style="shape=doubleEllipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L1">
+          <mxGeometry x="103" y="890" width="32" height="32" as="geometry" />
+        </mxCell>
+        <!-- EDGES -->
+        <mxCell id="E_I1_A1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="I1" target="A1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A1_D1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A1" target="D1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_ERR1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D1" target="ERR1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR1_FF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="ERR1" target="FF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_A2" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D1" target="A2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A2_D2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A2" target="D2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_M1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D2" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_D3" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D2" target="D3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_A3" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D3" target="A3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A3_M1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="A3" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_D4" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D3" target="D4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D4_A4" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D4" target="A4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D4_M1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D4" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A4_M1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A4" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_M1_A5" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="M1" target="A5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A5_A6" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A5" target="A6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A6_AF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A6" target="AF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="issue_delete" name="Schadensmeldung löschen">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- LANES -->
+        <mxCell id="L1" value="Admin" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="10" width="220" height="820" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" value="Backend" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="10" width="310" height="820" as="geometry" />
+        </mxCell>
+        <mxCell id="I1" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L1">
+          <mxGeometry x="94" y="50" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" value="Schadensmeldung auswählen und Löschen bestätigen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="30" y="100" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Decision: Schadensmeldung vorhanden? -->
+        <mxCell id="D1" value="Schadensmeldung&#xa;vorhanden?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="85" y="180" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR1" value="Fehlermeldung zurückgeben" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="L2">
+          <mxGeometry x="210" y="185" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="L2">
+          <mxGeometry x="248" y="260" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1x" value="✖" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="L2">
+          <mxGeometry x="248" y="260" width="24" height="24" as="geometry" />
+        </mxCell>
+        <!-- Decision: Meldung ist noch offen oder in Bearbeitung? -->
+        <mxCell id="D2" value="Meldung noch offen&#xa;oder in Bearbeitung?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="85" y="280" width="110" height="80" as="geometry" />
+        </mxCell>
+        <!-- Decision: Keine anderen offenen Meldungen und kein aktiver Ausleih? -->
+        <mxCell id="D3" value="Keine anderen&#xa;offenen Meldungen&#xa;und kein aktiver&#xa;Ausleih?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="85" y="390" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" value="Exemplar als „Verfügbar“ und Zustand als „In Ordnung“ setzen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="75" y="510" width="160" height="60" as="geometry" />
+        </mxCell>
+        <!-- Merge -->
+        <mxCell id="M1" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="L2">
+          <mxGeometry x="125" y="588" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" value="Schadensmeldung aus der Datenbank löschen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="75" y="648" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" value="Erfolgsmeldung zurückgeben" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="75" y="720" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" value="Schadensmeldungsliste aktualisieren" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="30" y="720" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="AF1" value="" style="shape=doubleEllipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L1">
+          <mxGeometry x="94" y="783" width="32" height="32" as="geometry" />
+        </mxCell>
+        <!-- EDGES -->
+        <mxCell id="E_I1_A1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="I1" target="A1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A1_D1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A1" target="D1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_ERR1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D1" target="ERR1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR1_FF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="ERR1" target="FF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_D2" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D1" target="D2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_D3" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D2" target="D3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_M1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D2" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_A2" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D3" target="A2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_M1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D3" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A2_M1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A2" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_M1_A3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="M1" target="A3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A3_A4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A3" target="A4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A4_A5" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A4" target="A5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A5_AF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A5" target="AF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
