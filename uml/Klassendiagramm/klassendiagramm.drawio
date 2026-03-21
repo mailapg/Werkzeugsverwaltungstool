@@ -1,0 +1,311 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4">
+  <diagram id="4IzttD118oDDTkLzMC2O" name="Seite-1">
+    <mxGraphModel dx="5068" dy="3395" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="2339" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lbl_user" parent="1" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;opacity=60;" value="USER &amp; AUTH" vertex="1">
+          <mxGeometry height="34" width="160" x="290" y="-550" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_tool" parent="1" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;opacity=60;" value="TOOL" vertex="1">
+          <mxGeometry height="34" width="160" x="290" y="-500" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_loan" parent="1" style="text;html=1;strokeColor=#d6b656;fillColor=#fff2cc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;opacity=60;" value="LOAN" vertex="1">
+          <mxGeometry height="34" width="160" x="290" y="-450" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_req" parent="1" style="text;html=1;strokeColor=#b85450;fillColor=#f8cecc;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;opacity=60;" value="REQUEST" vertex="1">
+          <mxGeometry height="34" width="160" x="290" y="-400" as="geometry" />
+        </mxCell>
+        <mxCell id="Role" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="«ORM Model»&#xa;Role" vertex="1">
+          <mxGeometry height="180" width="240" x="1630" y="-317" as="geometry" />
+        </mxCell>
+        <mxCell id="Role_f" parent="Role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- name: str" vertex="1">
+          <mxGeometry height="40" width="240" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Role_div" parent="Role" style="line;strokeColor=#6c8ebf;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="240" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="Role_m" parent="Role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_role(id) → Role&#xa;+ get_roles() → List&#xa;+ create_role(data) → Role&#xa;+ update_role(role, data) → Role&#xa;+ delete_role(Role) → None" vertex="1">
+          <mxGeometry height="85" width="240" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="Department" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="«ORM Model»&#xa;Department" vertex="1">
+          <mxGeometry height="210" width="310" x="720" y="-332" as="geometry" />
+        </mxCell>
+        <mxCell id="Dept_f" parent="Department" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- name: str&#xa;- lead_user_id: int" vertex="1">
+          <mxGeometry height="55" width="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Dept_div" parent="Department" style="line;strokeColor=#6c8ebf;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="310" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dept_m" parent="Department" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_department(id) → Department&#xa;+ get_departments() → List&#xa;+ get_department_by_lead(uid) → Dept&#xa;+ create_department(data) → Department&#xa;+ update_department(department, data) → Department&#xa;+ delete_department(Department) → None" vertex="1">
+          <mxGeometry height="120" width="280" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="BlacklistedToken" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="«ORM Model»&#xa;BlacklistedToken" vertex="1">
+          <mxGeometry height="170" width="280" x="240" y="-280" as="geometry" />
+        </mxCell>
+        <mxCell id="BT_f" parent="BlacklistedToken" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- token: str&#xa;- expires_at: datetime" vertex="1">
+          <mxGeometry height="55" width="280" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="BT_div" parent="BlacklistedToken" style="line;strokeColor=#6c8ebf;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="280" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="BT_m" parent="BlacklistedToken" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ blacklist_token(token, exp) → Token&#xa;+ is_token_blacklisted(token) → bool&#xa;+ cleanup_expired_tokens() → None" vertex="1">
+          <mxGeometry height="60" width="280" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-7" edge="1" parent="1" source="User" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=openThin;endFill=0;endSize=20;" target="Role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-8" edge="1" parent="1" source="User" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;startArrow=none;startFill=0;startSize=20;endSize=20;" target="Department">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-19" edge="1" parent="1" source="User" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=20;endArrow=none;endFill=0;endSize=20;startArrow=open;startFill=0;" target="ToolItemIssue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-21" edge="1" parent="1" source="User_m" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=open;endFill=0;endSize=20;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" target="Loan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-27" edge="1" parent="1" source="User" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.864;entryY=0.003;entryDx=0;entryDy=0;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=open;endFill=0;endSize=20;entryPerimeter=0;" target="LoanRequest">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1325" y="-470" />
+              <mxPoint x="2106" y="-470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="User" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="«ORM Model»&#xa;User" vertex="1">
+          <mxGeometry height="326" width="260" x="1195" y="-390" as="geometry" />
+        </mxCell>
+        <mxCell id="User_f" parent="User" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- firstname: str &#xa;- lastname: str &#xa;- email: str&#xa;- passwordhash: str &#xa;- is_active: bool&#xa;- role_id: int&#xa;- department_id: int&#xa;- created_at: datetime &#xa;- updated_at: datetime" vertex="1">
+          <mxGeometry height="150" width="260" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="User_div" parent="User" style="line;strokeColor=#6c8ebf;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="260" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="User_m" parent="User" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_user(id) → User&#xa;+ get_user_by_email(email) → User&#xa;+ get_users() → List&#xa;+ get_users_by_department(dept_id) → List&#xa;+ create_user(data) → User &#xa;+ update_user(user, data) → User&#xa;+ delete_user(User) → None&#xa;+ hash_password(plain) → None " vertex="1">
+          <mxGeometry height="130" width="260" y="196" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-5" edge="1" parent="1" source="ToolCategory" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;curved=0;endArrow=none;endFill=0;startArrow=open;startFill=0;startSize=20;" target="Tool">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ToolCategory" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="«ORM Model»&#xa;ToolCategory" vertex="1">
+          <mxGeometry height="180" width="340" x="-750" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="TC_f" parent="ToolCategory" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- name: str" vertex="1">
+          <mxGeometry height="40" width="260" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TC_div" parent="ToolCategory" style="line;strokeColor=#82b366;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="340" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="TC_m" parent="ToolCategory" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool_category(id) → ToolCategory&#xa;+ get_tool_categories() → List&#xa;+ create_tool_category(data) → ToolCategory&#xa;+ update_tool_category(tool category, data) → ToolCategory&#xa;+ delete_tool_category(ToolCategory) → None" vertex="1">
+          <mxGeometry height="100" width="260" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="ToolStatus" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="«ORM Model»&#xa;ToolStatus" vertex="1">
+          <mxGeometry height="180" width="300" x="1175" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="TS_f" parent="ToolStatus" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int  PK&#xa;- name: str" vertex="1">
+          <mxGeometry height="60" width="260" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TS_div" parent="ToolStatus" style="line;strokeColor=#82b366;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="300" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TS_m" parent="ToolStatus" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool_status(id) → ToolStatus&#xa;+ get_tool_statuses() → List&#xa;+ create_tool_status(data) → ToolStatus&#xa;+ update_tool_status(tool status, data) → ToolStatus&#xa;+ delete_tool_status(ToolStatus) → None" vertex="1">
+          <mxGeometry height="80" width="260" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-6" edge="1" parent="1" source="ToolCondition" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;startSize=20;strokeWidth=2;jumpSize=8;startArrow=open;startFill=0;" target="ToolItem">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="252" />
+              <mxPoint x="260" y="252" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ToolCondition" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="«ORM Model»&#xa;ToolCondition" vertex="1">
+          <mxGeometry height="165" width="340" x="-180" y="169" as="geometry" />
+        </mxCell>
+        <mxCell id="TCond_f" parent="ToolCondition" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- name: str" vertex="1">
+          <mxGeometry height="55" width="260" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TCond_div" parent="ToolCondition" style="line;strokeColor=#82b366;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="340" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="TCond_m" parent="ToolCondition" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool_condition(id) → ToolCondition&#xa;+ get_tool_conditions() → List&#xa;+ create_tool_condition(data) → ToolCondition&#xa;+ update_tool_condition(toolcategory, data) → ToolCondition&#xa;+ delete_tool_condition(ToolCondition) → None" vertex="1">
+          <mxGeometry height="80" width="260" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-11" edge="1" parent="1" source="LoanItem" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=diamondThin;endFill=0;strokeWidth=1;startSize=3;endSize=20;" target="Tool">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="640" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-31" edge="1" parent="1" source="Tool" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=20;endArrow=none;endFill=0;endSize=20;startArrow=diamondThin;startFill=0;" target="ToolItem">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-250" y="730" />
+              <mxPoint x="-250" y="30" />
+              <mxPoint x="529" y="30" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Tool" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="«ORM Model»&#xa;Tool" vertex="1">
+          <mxGeometry height="250" width="300" x="-200" y="685" as="geometry" />
+        </mxCell>
+        <mxCell id="Tool_f" parent="Tool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- tool_name: str&#xa;- description: str&#xa;- image_filename: str&#xa;- category_id: int&#xa;- created_at: datetime&#xa;- updated_at: datetime" vertex="1">
+          <mxGeometry height="100" width="300" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Tool_div" parent="Tool" style="line;strokeColor=#82b366;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="300" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="Tool_m" parent="Tool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool(id) → Tool&#xa;+ get_tools(name, cat_id) → List&#xa;+ create_tool(data) → Tool&#xa;+ update_tool(tool, data) → Tool&#xa;+ delete_tool(tool) → None&#xa;+ set_tool_image(tool, filename) → Tool" vertex="1">
+          <mxGeometry height="95" width="300" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-9" edge="1" parent="1" source="ToolItem" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;endSize=20;startArrow=open;startFill=0;startSize=20;" target="LoanItem">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-13" edge="1" parent="1" source="ToolItem" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=open;endFill=0;endSize=20;" target="ToolStatus">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1030" y="250" />
+              <mxPoint x="1030" y="770" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ToolItem" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="«ORM Model»&#xa;ToolItem" vertex="1">
+          <mxGeometry height="300" width="390" x="334" y="101.5" as="geometry" />
+        </mxCell>
+        <mxCell id="TItem_f" parent="ToolItem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: in&#xa;- inventory_no: str&#xa;- description: str&#xa;- tool_id: int&#xa;- status_id: int&#xa;- condition_id: int&#xa;- created_at: datetime&#xa;+ updated_at: datetime" vertex="1">
+          <mxGeometry height="115" width="340" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TItem_div" parent="ToolItem" style="line;strokeColor=#82b366;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="390" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="TItem_m" parent="ToolItem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool_item(id) → ToolItem&#xa;+ get_tool_items(tool_id, status_id, condition_id, inventory_no) → List&#xa;+ get_tool_items_by_tool(tool_id) → List&#xa;+ create_tool_item(data) → ToolItem&#xa;+ update_tool_item(item, data) → ToolItem&#xa;+ retire_tool_item(item) → ToolItem&#xa;+ delete_tool_item(ToolItem) → None&#xa;+ get_tool_item_loan_history(id) → List" vertex="1">
+          <mxGeometry height="185" width="390" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="ToolItemIssueStatus" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="«ORM Model»&#xa;ToolItemIssueStatus" vertex="1">
+          <mxGeometry height="190" width="460" x="1095" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="TIIS_f" parent="ToolItemIssueStatus" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- name: str" vertex="1">
+          <mxGeometry height="55" width="280" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="TIIS_div" parent="ToolItemIssueStatus" style="line;strokeColor=#82b366;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="460" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TIIS_m" parent="ToolItemIssueStatus" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool_item_issue_status(id) → ToolItemIssueStatus&#xa;+ get_tool_item_issue_statuses() → List&#xa;+ create_tool_item_issue_status(data) → ToolItemIssueStatus&#xa;+ update_tool_item_issue_status(toolitemissuestatus, data) → ToolItemIssueStatus&#xa;+ delete_tool_item_issue_status(ToolItemIssueStatus) → None" vertex="1">
+          <mxGeometry height="100" width="390" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-15" edge="1" parent="1" source="ToolItemIssue" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=diamondThin;endFill=1;endSize=20;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" target="ToolItem">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-18" edge="1" parent="1" source="ToolItemIssue" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=open;endFill=0;endSize=20;" target="ToolItemIssueStatus">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-20" edge="1" parent="1" source="ToolItemIssue" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=open;endFill=0;endSize=20;" target="Loan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ToolItemIssue" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="«ORM Model»&#xa;ToolItemIssue" vertex="1">
+          <mxGeometry height="300" width="320" x="1165" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="TII_f" parent="ToolItemIssue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- tool_item_id: int&#xa;- reported_by_user_id: int&#xa;- status_id: int&#xa;- title: str &#xa;- description: str&#xa;- related_loan_id: int&#xa;- reported_at: datetime&#xa;- resolved_at: datetime" vertex="1">
+          <mxGeometry height="120" width="290" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TII_div" parent="ToolItemIssue" style="line;strokeColor=#82b366;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="320" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="TII_m" parent="ToolItemIssue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_tool_item_issue(id) → ToolItemIssue&#xa;+ get_tool_item_issues() → List&#xa;+ get_issues_by_tool_item(item_id) → List&#xa;+ create_tool_item_issue(data) → ToolItemIssue&#xa;+ update_tool_item_issue(issue, data) → ToolItemIssue&#xa;+ resolve_tool_item_issue(issue) → ToolItemIssue&#xa;+ delete_tool_item_issue(ToolItemIssue) → None" vertex="1">
+          <mxGeometry height="115" width="380" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-24" edge="1" parent="1" source="Loan" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=open;endFill=0;endSize=20;" target="LoanRequest">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1935" y="590" />
+              <mxPoint x="1935" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Loan" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#fff2cc;strokeColor=#d6b656;" value="«ORM Model»&#xa;Loan" vertex="1">
+          <mxGeometry height="360" width="310" x="1730" y="-4" as="geometry" />
+        </mxCell>
+        <mxCell id="Loan_f" parent="Loan" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- due_at: datetime &#xa;- issued_at: datetime&#xa;- returned_at: datetime &#xa;- comment: str  opt&#xa;- borrower_user_id: int&#xa;- issued_by_user_id: int&#xa;- returned_by_user_id: int&#xa;- created_from_request_id: int" vertex="1">
+          <mxGeometry height="150" width="300" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Loan_div" parent="Loan" style="line;strokeColor=#d6b656;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="310" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="Loan_m" parent="Loan" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_loan(id) → Loan&#xa;+ get_loans(borrower_id, active_only) → List&#xa;+ get_loans_by_borrower(user_id) → List&#xa;+ get_loans_by_department(dept_id) → List&#xa;+ get_overdue_loans(dept_id?) → List&#xa;+ create_loan(data) → Loan&#xa;+ create_loan_from_request(request, approver) → Loan&#xa;+ update_loan(loan, data) → Loan&#xa;+ return_loan(loan, user_id, items) → Loan&#xa;+ delete_loan(Loan) → None" vertex="1">
+          <mxGeometry height="170" width="310" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-22" edge="1" parent="1" source="LI_m" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=3;endArrow=diamondThin;endFill=1;endSize=20;exitX=0.5;exitY=1;exitDx=0;exitDy=0;startArrow=none;startFill=0;" target="Loan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-23" edge="1" parent="1" source="LoanItem" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=20;endArrow=open;endFill=0;endSize=20;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;startArrow=none;startFill=0;" target="TCond_m">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="444" y="440" />
+              <mxPoint x="15" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LoanItem" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#fff2cc;strokeColor=#d6b656;" value="«ORM Model»&#xa;LoanItem" vertex="1">
+          <mxGeometry height="250" width="340" x="359" y="685" as="geometry" />
+        </mxCell>
+        <mxCell id="LI_f" parent="LoanItem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- loan_id: int&#xa;- tool_item_id: int&#xa;- return_comment: str  opt&#xa;- return_condition_id: int&#xa;- tool_item_id: int" vertex="1">
+          <mxGeometry height="105" width="340" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LI_div" parent="LoanItem" style="line;strokeColor=#d6b656;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="340" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="LI_m" parent="LoanItem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;fontStyle=0" value="+ get_loan_item(id) → LoanItem&#xa;+ get_loan_items() → List&#xa;+ create_loan_item(loan_id, item_id) → LoanItem&#xa;+ update_loan_item(item, data) → LoanItem&#xa;+ delete_loan_item(LoanItem) → None" vertex="1">
+          <mxGeometry height="90" width="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-28" edge="1" parent="1" source="LoanRequestStatus" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=20;endArrow=none;endFill=0;endSize=20;startArrow=open;startFill=0;" target="LoanRequest">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LoanRequestStatus" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#f8cecc;strokeColor=#b85450;" value="«ORM Model»&#xa;LoanRequestStatus" vertex="1">
+          <mxGeometry height="170" width="440" x="1130" y="1405" as="geometry" />
+        </mxCell>
+        <mxCell id="LRS_f" parent="LoanRequestStatus" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- name: str" vertex="1">
+          <mxGeometry height="55" width="280" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="LRS_div" parent="LoanRequestStatus" style="line;strokeColor=#b85450;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="440" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="LRS_m" parent="LoanRequestStatus" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;fontStyle=0" value="+ get_loan_request_status(id) → LoanRequestStatus&#xa;+ get_loan_request_statuses() → List&#xa;+ create_loan_request_status(data) → LoanRequestStatus&#xa;+ update_loan_request_status(loanrequeststatus, data) → LoanRequestStatus&#xa;+ delete_loan_request_status(LoanRequestStatus) → None" vertex="1">
+          <mxGeometry height="100" width="280" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-29" edge="1" parent="1" source="LoanRequest" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=20;endArrow=none;endFill=0;endSize=20;startArrow=diamondThin;startFill=1;" target="LoanRequestItem">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1760" y="1200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LoanRequest" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#f8cecc;strokeColor=#b85450;" value="«ORM Model»&#xa;LoanRequest" vertex="1">
+          <mxGeometry height="340" width="470" x="1700" y="1320" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_f" parent="LoanRequest" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- comment: str &#xa;- days_needed: int&#xa;- requested_at: datetime&#xa;- loan_start_at: datetime&#xa;- due_at: datetime&#xa;- decision_at: datetime &#xa;- decision_comment: str&#xa;- requester_user_id: int&#xa;- approver_user_id: int&#xa;- request_status_id: int" vertex="1">
+          <mxGeometry height="150" width="420" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_div" parent="LoanRequest" style="line;strokeColor=#b85450;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="470" y="202" as="geometry" />
+        </mxCell>
+        <mxCell id="LR_m" parent="LoanRequest" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_loan_request(id) → LoanRequest&#xa;+ get_loan_requests() → List&#xa;+ get_loan_requests_by_user(uid) → List&#xa;+ get_loan_requests_by_department(id) → LoanRequest&#xa;+ create_loan_request(data) → LoanRequest&#xa;+ update_loan_request(loanrequest, data) → LoanRequest&#xa;+ decide_loan_request(loanrequest, approver, status_id, comment) → LoanRequest&#xa;+ delete_loan_request(loanrequest) → None" vertex="1">
+          <mxGeometry height="130" width="420" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="iiseRdFrTUzg36aN5E24-12" edge="1" parent="1" source="LoanRequestItem" style="edgeStyle=orthogonalEdgeStyle;shape=connector;curved=0;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;startSize=20;endArrow=open;endFill=0;endSize=20;startArrow=none;startFill=0;" target="Tool">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LoanRequestItem" parent="1" style="swimlane;startSize=40;fontStyle=1;fontSize=13;fillColor=#f8cecc;strokeColor=#b85450;" value="«ORM Model»&#xa;LoanRequestItem" vertex="1">
+          <mxGeometry height="236" width="430" x="340" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="LRI_f" parent="LoanRequestItem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="- id: int&#xa;- quantity: int &#xa;- tool_id: int&#xa;- request_id: int&#xa;- tool_id: int" vertex="1">
+          <mxGeometry height="90" width="430" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LRI_div" parent="LoanRequestItem" style="line;strokeColor=#b85450;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="10" width="430" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="LRI_m" parent="LoanRequestItem" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;fontSize=12;" value="+ get_loan_request_item(id) → LoanRequestItem&#xa;+ get_loan_request_items() → List&#xa;+ create_loan_request_item(req_id, tool_id, qty) → LoanRequestItem&#xa;+ update_loan_request_item(loanrequestitem, data)→ LoanRequestItem&#xa;+ delete_loan_request_item(loanrequestitem) → None" vertex="1">
+          <mxGeometry height="85" width="430" y="145" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

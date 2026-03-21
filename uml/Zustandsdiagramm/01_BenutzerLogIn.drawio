@@ -1,0 +1,62 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4">
+  <diagram id="benutzer-session" name="Benutzer Session">
+    <mxGraphModel dx="1616" dy="1192" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="750" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="Zustandsdiagramm: Benutzer Log In" vertex="1">
+          <mxGeometry height="30" width="420" x="97" y="-1" as="geometry" />
+        </mxCell>
+        <mxCell id="init" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="292" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="&lt;b style=&quot;caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51);&quot;&gt;Nicht eingeloggt&lt;/b&gt;&lt;br style=&quot;caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51); font-weight: 400;&quot;&gt;&lt;i style=&quot;caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51); font-weight: 400;&quot;&gt;kein Token vorhanden&lt;/i&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="195" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="&lt;b&gt;Login wird geprüft&lt;/b&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;i style=&quot;font-weight: 400;&quot;&gt;Loading... POST /auth/login&lt;/i&gt;" vertex="1">
+          <mxGeometry height="60" width="220" x="195" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" value="Eingeloggt" vertex="1">
+          <mxGeometry height="80" width="220" x="195" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="end_outer" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="290" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="end_inner" parent="end_outer" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="7" y="7" as="geometry" />
+        </mxCell>
+        <mxCell id="t0" edge="1" parent="1" source="init" style="html=1;endArrow=block;endFill=1;" target="s1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" edge="1" parent="1" source="s1" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;" target="s2" value="[E-Mail + Passwort eingeben]&amp;nbsp;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" edge="1" parent="1" source="s2" style="html=1;endArrow=block;endFill=1;fontSize=11;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="s1" value="[HTTP 401] Falsche Credentials">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="576" y="300" />
+              <mxPoint x="576" y="160" />
+            </Array>
+            <mxPoint x="657" y="296.1061946902655" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t4" edge="1" parent="1" source="s2" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;" target="s4" value="[HTTP 200] / Token gespeichert">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" edge="1" parent="1" source="s4" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="s1" value="Logout oder Token abgelaufen&amp;nbsp;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="63" y="450" />
+              <mxPoint x="63" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6" edge="1" parent="1" source="s4" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="end_outer" value="[Token gültig] / Rolle erkannt">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="305" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

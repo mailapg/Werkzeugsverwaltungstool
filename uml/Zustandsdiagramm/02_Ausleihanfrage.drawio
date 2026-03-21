@@ -1,0 +1,92 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4">
+  <diagram id="ausleihantrag" name="Ausleihantrag">
+    <mxGraphModel dx="1616" dy="1192" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="900" pageHeight="750" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="init" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="355" y="-157" as="geometry" />
+        </mxCell>
+        <mxCell id="s_check" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" value="Verfügbarkeit wird geprüft" vertex="1">
+          <mxGeometry height="60" width="240" x="250" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="s_requested" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="Ausstehend" vertex="1">
+          <mxGeometry height="60" width="200" x="270" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="s_approved" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" value="Angenommen" vertex="1">
+          <mxGeometry height="60" width="180" x="-153" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="s_rejected" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" value="Abgelehnt" vertex="1">
+          <mxGeometry height="60" width="180" x="280" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="s_cancelled" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;" value="Abgebrochen" vertex="1">
+          <mxGeometry height="60" width="180" x="743" y="453" as="geometry" />
+        </mxCell>
+        <mxCell id="end1_outer" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="-78" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="end1_inner" parent="end1_outer" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="7" y="7" as="geometry" />
+        </mxCell>
+        <mxCell id="end2_outer" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="355" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="end2_inner" parent="end2_outer" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="7" y="7" as="geometry" />
+        </mxCell>
+        <mxCell id="end3_outer" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="818" y="587" as="geometry" />
+        </mxCell>
+        <mxCell id="end3_inner" parent="end3_outer" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="7" y="7" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" edge="1" parent="1" source="s_check" style="html=1;endArrow=block;endFill=1;fontSize=11;edgeStyle=orthogonalEdgeStyle;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="eAbQGQsjliGZPi76ZwKJ-4" value="[Nicht genug Items verfügbar]">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="572" y="124" />
+              <mxPoint x="572" y="-29" />
+            </Array>
+            <mxPoint x="727" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t2" edge="1" parent="1" source="s_check" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;" target="s_requested" value="[Genug Items verfügbar]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" edge="1" parent="1" source="s_requested" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="s_approved" value="PATCH /decideloanrequest [APPROVED] / Loan erstellt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" edge="1" parent="1" source="s_requested" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;" target="s_rejected" value="PATCH /decideloanrequest [REJECTED]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" edge="1" parent="1" source="s_requested" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="s_cancelled" value="PATCH /updateloanrequest [Antragsteller]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" edge="1" parent="1" source="s_approved" style="html=1;endArrow=block;endFill=1;" target="end1_outer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" edge="1" parent="1" source="s_rejected" style="html=1;endArrow=block;endFill=1;" target="end2_outer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" edge="1" parent="1" source="s_cancelled" style="html=1;endArrow=block;endFill=1;" target="end3_outer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eAbQGQsjliGZPi76ZwKJ-1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="Zustandsdiagramm: Ausleihanfrage" vertex="1">
+          <mxGeometry height="30" width="500" x="120" y="-233" as="geometry" />
+        </mxCell>
+        <mxCell id="eAbQGQsjliGZPi76ZwKJ-2" edge="1" parent="1" source="init" style="html=1;endArrow=block;endFill=1;fontSize=11;exitX=0.5;exitY=1;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" target="eAbQGQsjliGZPi76ZwKJ-4" value="">
+          <mxGeometry relative="1" x="0.0099" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="489" y="84" as="sourcePoint" />
+            <mxPoint x="726" y="84" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eAbQGQsjliGZPi76ZwKJ-6" edge="1" parent="1" source="eAbQGQsjliGZPi76ZwKJ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="s_check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eAbQGQsjliGZPi76ZwKJ-4" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="Ausleihanfrage gestellt" vertex="1">
+          <mxGeometry height="60" width="200" x="270" y="-59" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,62 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4">
+  <diagram id="ausleihe" name="Ausleihe">
+    <mxGraphModel dx="1216" dy="1192" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="Zustandsdiagramm: Ausleihe" vertex="1">
+          <mxGeometry height="30" width="430" x="165" y="-69" as="geometry" />
+        </mxCell>
+        <mxCell id="init" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="360" y="-32" as="geometry" />
+        </mxCell>
+        <mxCell id="s_active" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" value="Aktiv" vertex="1">
+          <mxGeometry height="70" width="200" x="275" y="83" as="geometry" />
+        </mxCell>
+        <mxCell id="s_overdue" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" value="Überfällig" vertex="1">
+          <mxGeometry height="70" width="200" x="611" y="157" as="geometry" />
+        </mxCell>
+        <mxCell id="s_returned" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" value="Zurückgegeben" vertex="1">
+          <mxGeometry height="70" width="200" x="28" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="end_outer" parent="1" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="113" y="497" as="geometry" />
+        </mxCell>
+        <mxCell id="end_inner" parent="end_outer" style="ellipse;html=1;whiteSpace=wrap;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="16" width="16" x="7" y="7" as="geometry" />
+        </mxCell>
+        <mxCell id="t0" edge="1" parent="1" source="init" style="html=1;endArrow=block;endFill=1;fontSize=11;" target="s_active" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2V1CCVOJnQ5JQ70jQ76I-2" connectable="0" parent="t0" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="[Ausleihe wurde erstellt]" vertex="1">
+          <mxGeometry relative="1" x="0.0118" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t1" edge="1" parent="1" source="s_active" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;" target="s_overdue" value="[due_at &lt; now()] [returned_at = NULL]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" edge="1" parent="1" source="s_overdue" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="s_active" value="PATCH /updateloan [due_at verlängert]">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="250" />
+              <mxPoint x="260" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3" edge="1" parent="1" source="s_active" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="s_returned" value="PATCH /returnloan / returned_at gesetzt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" edge="1" parent="1" source="s_overdue" style="html=1;endArrow=block;endFill=1;edgeStyle=orthogonalEdgeStyle;fontSize=11;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="s_returned" value="PATCH /returnloan / returned_at gesetzt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" edge="1" parent="1" source="s_returned" style="html=1;endArrow=block;endFill=1;" target="end_outer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontSize=11;fillColor=#ffffc0;strokeColor=#FF8000;" value="Seiteneffekt bei Rückgabe:&#xa;ToolItem.status → AVAILABLE oder DEFECT" vertex="1">
+          <mxGeometry height="50" width="230" x="210" y="447" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

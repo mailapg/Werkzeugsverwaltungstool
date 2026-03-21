@@ -1,0 +1,241 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.3.1 Safari/605.1.15" version="29.6.4" pages="2">
+  <diagram id="loan_request_create" name="Ausleihantrag stellen">
+    <mxGraphModel dx="1431" dy="932" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="Nutzer" vertex="1">
+          <mxGeometry height="960" width="210" x="10" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Ausleihantrag-Dialog öffnen" vertex="1">
+          <mxGeometry height="50" width="160" x="25" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Werkzeuge mit Mengen und Zeitraum auswählen" vertex="1">
+          <mxGeometry height="50" width="160" x="25" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="A9" parent="L1" style="rounded=1;whiteSpace=wrap;html=1;" value="Antrag mit Status „Beantragt“ anzeigen" vertex="1">
+          <mxGeometry height="50" width="160" x="25" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="AF1" parent="L1" style="shape=doubleEllipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="32" width="32" x="89" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="System" vertex="1">
+          <mxGeometry height="960" width="220" x="220" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="I1" parent="L2" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="98" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Antrag absenden" vertex="1">
+          <mxGeometry height="50" width="160" x="30" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="A8" parent="L2" style="rounded=1;whiteSpace=wrap;html=1;" value="Antragsliste aktualisieren" vertex="1">
+          <mxGeometry height="50" width="160" x="30" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" value="Backend" vertex="1">
+          <mxGeometry height="960" width="350" x="440" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" parent="L3" style="rounded=1;whiteSpace=wrap;html=1;" value="Verfügbarkeit der gewünschten Werkzeuge prüfen" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="D1" parent="L3" style="rhombus;whiteSpace=wrap;html=1;" value="Alle Werkzeuge&#xa;verfügbar?" vertex="1">
+          <mxGeometry height="70" width="110" x="95" y="426" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" parent="L3" style="rounded=1;whiteSpace=wrap;html=1;" value="Ausleihantrag mit Status „Beantragt“ anlegen" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="A6" parent="L3" style="rounded=1;whiteSpace=wrap;html=1;" value="Gewünschte Werkzeuge dem Antrag zuordnen" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="A7" parent="L3" style="rounded=1;whiteSpace=wrap;html=1;" value="Erfolgsmeldung zurückgeben" vertex="1">
+          <mxGeometry height="50" width="160" x="70" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR1" parent="L3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Fehlermeldung zurückgeben" vertex="1">
+          <mxGeometry height="60" width="90" x="260" y="431" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1" parent="L3" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="24" width="24" x="288" y="506" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1x" parent="L3" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" value="✖" vertex="1">
+          <mxGeometry height="24" width="24" x="288" y="506" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR1_FF1" edge="1" parent="L3" source="ERR1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="FF1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_I1_A1" edge="1" parent="1" source="I1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A1_A2" edge="1" parent="1" source="A1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A2_A3" edge="1" parent="1" source="A2" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A3_A4" edge="1" parent="1" source="A3" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A4_D1" edge="1" parent="1" source="A4" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="D1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_ERR1" edge="1" parent="1" source="D1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="ERR1" value="[Nein]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_A5" edge="1" parent="1" source="D1" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A5" value="[Ja]">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A5_A6" edge="1" parent="1" source="A5" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A6_A7" edge="1" parent="1" source="A6" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A7_A8" edge="1" parent="1" source="A7" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A8_A9" edge="1" parent="1" source="A8" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="A9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A9_AF1" edge="1" parent="1" source="A9" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="AF1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="loan_request_decide" name="Ausleihantrag entscheiden">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- LANES -->
+        <mxCell id="L1" value="Admin/Manager" style="swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="10" width="230" height="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" value="System" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="10" width="210" height="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" value="Backend" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="10" width="310" height="1050" as="geometry" />
+        </mxCell>
+        <!-- Initial node in System lane -->
+        <mxCell id="I1" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L2">
+          <mxGeometry x="93" y="50" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A1" value="Antrag aus der Liste auswählen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="35" y="100" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A2" value="Entscheidung treffen und Kommentar eingeben" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L1">
+          <mxGeometry x="35" y="180" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A3" value="Entscheidung absenden" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="25" y="260" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Decision: Antrag vorhanden? -->
+        <mxCell id="D1" value="Antrag&#xa;vorhanden?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L3">
+          <mxGeometry x="85" y="340" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR1" value="Fehlermeldung zurückgeben" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="L3">
+          <mxGeometry x="210" y="345" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="L3">
+          <mxGeometry x="248" y="420" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="FF1x" value="✖" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="L3">
+          <mxGeometry x="248" y="420" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A4" value="Entscheidung und Zeitstempel am Antrag vermerken" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L3">
+          <mxGeometry x="75" y="440" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Decision: Antrag genehmigt? -->
+        <mxCell id="D2" value="Antrag&#xa;genehmigt?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L3">
+          <mxGeometry x="85" y="530" width="110" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="A5" value="Fälligkeitsdatum berechnen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L3">
+          <mxGeometry x="75" y="630" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="A6" value="Verfügbare Exemplare für jedes Werkzeug auswählen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L3">
+          <mxGeometry x="75" y="710" width="160" height="50" as="geometry" />
+        </mxCell>
+        <!-- Decision: Noch genügend Exemplare verfügbar? -->
+        <mxCell id="D3" value="Noch genügend&#xa;Exemplare&#xa;verfügbar?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="L3">
+          <mxGeometry x="85" y="790" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ERR2" value="Fehlermeldung zurückgeben" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="L3">
+          <mxGeometry x="210" y="800" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FF2" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="L3">
+          <mxGeometry x="248" y="875" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="FF2x" value="✖" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="L3">
+          <mxGeometry x="248" y="875" width="24" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="A7" value="Ausleihe automatisch erstellen und Exemplare als „Ausgeliehen“ markieren" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L3">
+          <mxGeometry x="75" y="895" width="160" height="60" as="geometry" />
+        </mxCell>
+        <!-- Merge -->
+        <mxCell id="M1" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="L3">
+          <mxGeometry x="125" y="970" width="50" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="A8" value="Antragsliste aktualisieren" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="L2">
+          <mxGeometry x="25" y="970" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="AF1" value="" style="shape=doubleEllipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="L2">
+          <mxGeometry x="93" y="1005" width="32" height="32" as="geometry" />
+        </mxCell>
+        <!-- EDGES -->
+        <mxCell id="E_I1_A1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="I1" target="A1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A1_A2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A1" target="A2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A2_A3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A2" target="A3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A3_D1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A3" target="D1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_ERR1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D1" target="ERR1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR1_FF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="ERR1" target="FF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D1_A4" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D1" target="A4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A4_D2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A4" target="D2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_A5" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D2" target="A5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D2_M1" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D2" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A5_A6" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A5" target="A6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A6_D3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A6" target="D3" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_ERR2" value="[Nein]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="D3" target="ERR2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_ERR2_FF2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="ERR2" target="FF2" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_D3_A7" value="[Ja]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="D3" target="A7" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A7_M1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A7" target="M1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_M1_A8" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="M1" target="A8" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="E_A8_AF1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="A8" target="AF1" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

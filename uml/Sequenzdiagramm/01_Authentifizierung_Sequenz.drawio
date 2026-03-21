@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" version="29.6.4" pages="3">
+  <diagram id="auth_login" name="Login">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ll_user" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="90" y="40" width="20" height="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_user" value="Nutzer" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="65" y="10" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_fe" value="Frontend (React)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="250" y="40" width="100" height="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_be" value="Backend (FastAPI)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="470" y="40" width="100" height="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_db" value="Datenbank (SQLite)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="690" y="40" width="100" height="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="a_user" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="94" y="120" width="12" height="930" as="geometry" />
+        </mxCell>
+        <mxCell id="a_fe" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="294" y="150" width="12" height="880" as="geometry" />
+        </mxCell>
+        <mxCell id="a_be" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="514" y="280" width="12" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="a_db1" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="734" y="345" width="12" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" value="login(email, password)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_user" target="a_fe" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="106" y="150" />
+              <mxPoint x="294" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="validateForm()" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_fe" target="a_fe" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="306" y="220" />
+              <mxPoint x="350" y="220" />
+              <mxPoint x="350" y="255" />
+              <mxPoint x="306" y="255" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="POST /auth/login" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_fe" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="306" y="280" />
+              <mxPoint x="514" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="findUserByEmail(email)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_db1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="526" y="350" />
+              <mxPoint x="734" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r4" value="User | null" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;dashed=1;" edge="1" source="a_db1" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="734" y="420" />
+              <mxPoint x="526" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frag1" value="alt [Benutzer nicht gefunden &#8594; HTTP 401 zurückgeben]" style="shape=mxgraph.uml.rect;whiteSpace=wrap;html=1;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;strokeDasharray=8 8;" vertex="1" parent="1">
+          <mxGeometry x="270" y="435" width="510" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m7" value="verifyPassword(password, passwordHash)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="526" y="500" />
+              <mxPoint x="570" y="500" />
+              <mxPoint x="570" y="535" />
+              <mxPoint x="526" y="535" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frag2" value="alt [Passwort falsch &#8594; HTTP 401 zurückgeben]" style="shape=mxgraph.uml.rect;whiteSpace=wrap;html=1;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;strokeDasharray=8 8;" vertex="1" parent="1">
+          <mxGeometry x="270" y="545" width="510" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m9" value="checkAccountActive(user)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="526" y="610" />
+              <mxPoint x="570" y="610" />
+              <mxPoint x="570" y="645" />
+              <mxPoint x="526" y="645" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frag3" value="alt [Account inaktiv &#8594; HTTP 401 zurückgeben]" style="shape=mxgraph.uml.rect;whiteSpace=wrap;html=1;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;strokeDasharray=8 8;" vertex="1" parent="1">
+          <mxGeometry x="270" y="655" width="510" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m11" value="createJWT({sub: user.id, role_id, dept_id})" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="526" y="720" />
+              <mxPoint x="570" y="720" />
+              <mxPoint x="570" y="755" />
+              <mxPoint x="526" y="755" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r_200" value="HTTP 200 {access_token, token_type: &quot;bearer&quot;}" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;dashed=1;strokeColor=#007700;" edge="1" source="a_be" target="a_fe" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="514" y="800" />
+              <mxPoint x="306" y="800" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m13" value="localStorage.setItem(&quot;token&quot;, token)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_fe" target="a_fe" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="306" y="870" />
+              <mxPoint x="350" y="870" />
+              <mxPoint x="350" y="905" />
+              <mxPoint x="306" y="905" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" value="navigate(&quot;/dashboard&quot;)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;dashed=0;" edge="1" source="a_fe" target="a_user" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="294" y="950" />
+              <mxPoint x="106" y="950" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d_user" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1050" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d_fe" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="280" y="1050" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d_be" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1050" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d_db" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1050" width="40" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="auth_logout" name="Logout">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ll_user" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="90" y="40" width="20" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_user" value="Nutzer" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="65" y="10" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_fe" value="Frontend (React)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="250" y="40" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_be" value="Backend (FastAPI)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="470" y="40" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_db" value="Datenbank (SQLite)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="690" y="40" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="a_user" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="94" y="120" width="12" height="720" as="geometry" />
+        </mxCell>
+        <mxCell id="a_fe" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="294" y="150" width="12" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="a_be" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="514" y="220" width="12" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="a_db1" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="734" y="355" width="12" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" value="logout()" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_user" target="a_fe" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="106" y="150" />
+              <mxPoint x="294" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="POST /auth/logout" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_fe" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="306" y="220" />
+              <mxPoint x="514" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" value="decodeJWT(token)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="526" y="290" />
+              <mxPoint x="570" y="290" />
+              <mxPoint x="570" y="325" />
+              <mxPoint x="526" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="insertTokenBlacklist(token, exp)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_db1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="526" y="360" />
+              <mxPoint x="734" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r4" value="OK" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;dashed=1;" edge="1" source="a_db1" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="734" y="430" />
+              <mxPoint x="526" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r_204" value="HTTP 204 No Content" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;dashed=1;strokeColor=#007700;" edge="1" source="a_be" target="a_fe" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="514" y="500" />
+              <mxPoint x="306" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note1" value="Jeder API-Request prüft über get_current_user() ob der Token gesperrt ist." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="840" y="490" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="m7" value="localStorage.removeItem(&quot;token&quot;)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_fe" target="a_fe" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="306" y="570" />
+              <mxPoint x="350" y="570" />
+              <mxPoint x="350" y="605" />
+              <mxPoint x="306" y="605" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" value="clearAuthContext()" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_fe" target="a_fe" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="306" y="650" />
+              <mxPoint x="350" y="650" />
+              <mxPoint x="350" y="685" />
+              <mxPoint x="306" y="685" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="navigate(&quot;/login&quot;)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;dashed=0;" edge="1" source="a_fe" target="a_user" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="294" y="750" />
+              <mxPoint x="106" y="750" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d_user" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="80" y="850" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d_fe" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="280" y="850" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d_be" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="500" y="850" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d_db" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="720" y="850" width="40" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="auth_token" name="Token-Validierung">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ll_fe" value="Frontend (React)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="90" y="40" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_be" value="Backend (FastAPI)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="310" y="40" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="ll_db" value="Datenbank (SQLite)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="530" y="40" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="a_fe" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="134" y="100" width="12" height="720" as="geometry" />
+        </mxCell>
+        <mxCell id="a_be" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="354" y="130" width="12" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="a_db1" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="574" y="305" width="12" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="a_db2" value="" style="shape=mxgraph.uml.activation;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="574" y="455" width="12" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" value="HTTP-Request + Authorization: Bearer token" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_fe" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="146" y="130" />
+              <mxPoint x="354" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="jwt.decode(token, SECRET_KEY)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="366" y="200" />
+              <mxPoint x="410" y="200" />
+              <mxPoint x="410" y="235" />
+              <mxPoint x="366" y="235" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frag1" value="alt [Token ungültig / abgelaufen &#8594; HTTP 401]" style="shape=mxgraph.uml.rect;whiteSpace=wrap;html=1;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;strokeDasharray=8 8;" vertex="1" parent="1">
+          <mxGeometry x="100" y="245" width="510" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m4" value="findTokenInBlacklist(token)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_db1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="366" y="310" />
+              <mxPoint x="574" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r4" value="BlacklistEntry | null" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;dashed=1;" edge="1" source="a_db1" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="574" y="380" />
+              <mxPoint x="366" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frag2" value="alt [Token gesperrt &#8594; HTTP 401]" style="shape=mxgraph.uml.rect;whiteSpace=wrap;html=1;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;strokeDasharray=8 8;" vertex="1" parent="1">
+          <mxGeometry x="100" y="395" width="510" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m6" value="findUserById(sub)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_db2" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="366" y="460" />
+              <mxPoint x="574" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="r6" value="User" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;dashed=1;" edge="1" source="a_db2" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="574" y="530" />
+              <mxPoint x="366" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" value="checkRole(required_roles)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="366" y="600" />
+              <mxPoint x="410" y="600" />
+              <mxPoint x="410" y="635" />
+              <mxPoint x="366" y="635" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="frag3" value="alt [Rolle nicht berechtigt &#8594; HTTP 403]" style="shape=mxgraph.uml.rect;whiteSpace=wrap;html=1;fontStyle=1;fontSize=11;fillColor=none;strokeColor=#000000;strokeDasharray=8 8;" vertex="1" parent="1">
+          <mxGeometry x="100" y="645" width="510" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="m10" value="requestHandler(request)" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=1;" edge="1" source="a_be" target="a_be" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="366" y="710" />
+              <mxPoint x="410" y="710" />
+              <mxPoint x="410" y="745" />
+              <mxPoint x="366" y="745" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d_fe" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="110" y="850" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d_be" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="330" y="850" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d_db" value="" style="shape=umlDestroy;dashed=0;targetShapes=umlLifeline;" vertex="1" parent="1">
+          <mxGeometry x="550" y="850" width="40" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
